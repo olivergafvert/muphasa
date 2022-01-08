@@ -1,0 +1,40 @@
+#!/bin/bash
+
+usage()
+{
+    echo "usage: install_python_interface [[[-p python ] | [-h]]"
+}
+
+# Install python interface and check python version
+version="$(python -c 'import sys; print sys.version_info.major')"
+if [[ "$version" -eq "3" ]]
+then 
+    python_path=$(which python)
+else
+    python_path=$(which python3)
+fi
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -p | --python )           shift
+                                python_path=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+ORIG_DIR=$PWD
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Change directory to python interface
+cd $DIR && cd ../python/mph.py
+
+$python_path setup.py install
+
+# Go back to original dir
+cd $ORIG_DIR

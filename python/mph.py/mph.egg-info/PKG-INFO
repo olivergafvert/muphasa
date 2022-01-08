@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: mph
+Version: 0.0.1
+Summary: A Multiparameter Persistent Homology Library for Python
+Home-page: UNKNOWN
+Author: Oliver Gäfvert
+Author-email: oliverg@kth.se
+License: MIT
+Description: UNKNOWN
+Keywords: persistent homology,topology data analysis,algebraic topology,unsupervised learning
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Intended Audience :: Healthcare Industry
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Provides-Extra: docs
+Provides-Extra: testing

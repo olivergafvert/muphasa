@@ -1,0 +1,8 @@
+Cython
+numpy
+
+[docs]
+sktda_docs_config
+
+[testing]
+pytest
