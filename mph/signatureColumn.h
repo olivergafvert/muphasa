@@ -2,7 +2,7 @@
 #define MPH_SIGNATURECOLUMN_INCLUDED
 
 #include "column.h"
-#include "util.h"
+#include "utils.h"
 
 class signature_t : public std::pair<grade_t, index_t>{
  public:

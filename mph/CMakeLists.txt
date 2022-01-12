@@ -1,5 +1,8 @@
+# This file is an adaptation of its analog in Rivet
+# see https://github.com/rivetTDA/rivet/
+
 cmake_minimum_required (VERSION 3.1)
-project (rivet_console)
+project (muphasa)
 set (CMAKE_CXX_STANDARD 14)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)

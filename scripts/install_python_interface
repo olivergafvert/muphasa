@@ -6,7 +6,7 @@ usage()
 }
 
 # Install python interface and check python version
-version="$(python -c 'import sys; print sys.version_info.major')"
+version="$(python -c 'import sys; print(sys.version_info.major)')"
 if [[ "$version" -eq "3" ]]
 then 
     python_path=$(which python)
