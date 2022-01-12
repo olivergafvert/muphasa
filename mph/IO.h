@@ -172,7 +172,7 @@ void build_VR_subcomplex(std::vector<std::vector<input_t>>& points, std::vector<
     }
 }
 
-void build_VR_subcomplex_spatiotemporal(std::vector<std::vector<std::vector<input_t>>>& trajectories, std::vector<Metric*>& metrics, std::vector<Filter*>& filters, std::vector<size_t>& vertices, std::vector<input_t>& prev_values, std::vector<input_t>& max_metric_values, std::vector<Simplex<input_t>>& low_simplices, std::vector<Simplex<input_t>>& mid_simplices, std::vector<Simplex<input_t>>& high_simplices, int hom_dim){
+/*void build_VR_subcomplex_spatiotemporal(std::vector<std::vector<std::vector<input_t>>>& trajectories, std::vector<Metric*>& metrics, std::vector<Filter*>& filters, std::vector<size_t>& vertices, std::vector<input_t>& prev_values, std::vector<input_t>& max_metric_values, std::vector<Simplex<input_t>>& low_simplices, std::vector<Simplex<input_t>>& mid_simplices, std::vector<Simplex<input_t>>& high_simplices, int hom_dim){
     /* Helper function to recursively compute the Vietoris-Rips complex for a dynamic metric space in the sense of Memoli/Kim (2020).
      
      points {std::vector<std::vector<input_t>>} -- a list of points in space.
@@ -186,7 +186,7 @@ void build_VR_subcomplex_spatiotemporal(std::vector<std::vector<std::vector<inpu
      high_simplices {std::vector<Simplex>} -- all simplices of dimension hom_dim+1.
      hom_dim {int} -- the dimension of the homology to be computed.
      
-     */
+     *//*
     if (vertices.size() == hom_dim) //simplex of dimension hom_dim - 1
     {
         low_simplices.push_back(Simplex<input_t>(vertices, prev_values));
@@ -227,7 +227,7 @@ void build_VR_subcomplex_spatiotemporal(std::vector<std::vector<std::vector<inpu
             vertices.pop_back();
         }
     }
-}
+}*/
 
 void build_VR_subcomplex_grades(std::vector<std::vector<input_t>>& points, std::vector<grade_t>& point_grades, std::vector<size_t>& vertices, grade_t& prev_grade, grade_t& max_grade, std::vector<Simplex<index_t>>& low_simplices, std::vector<Simplex<index_t>>& mid_simplices, std::vector<Simplex<index_t>>& high_simplices, int hom_dim){
     /* Helper function to recursively compute the Vietoris-Rips complex.
@@ -460,7 +460,7 @@ std::pair<Matrix, Matrix> compute_boundary_matrices(std::vector<std::vector<inpu
 }
 
 
-std::pair<Matrix, Matrix> compute_boundary_matrices_spatiotemporal(std::vector<std::vector<std::vector<input_t>>>& trajectories, std::vector<Metric*>& metrics, std::vector<Filter*>& filters, std::vector<input_t>& max_metric_values, int hom_dim){
+/*std::pair<Matrix, Matrix> compute_boundary_matrices_spatiotemporal(std::vector<std::vector<std::vector<input_t>>>& trajectories, std::vector<Metric*>& metrics, std::vector<Filter*>& filters, std::vector<input_t>& max_metric_values, int hom_dim){
     /* Computes the two boundary matrices of the Vietoris-Rips complex needed to compute the homology of dimension 'hom_dim'.
      
      points {std::vector<std::vector<S>>} -- a list of points in space.
@@ -469,7 +469,7 @@ std::pair<Matrix, Matrix> compute_boundary_matrices_spatiotemporal(std::vector<s
      max_metric_values {std::vector<S>} -- the maximum allowed distances for each metric respectively.
      hom_dim {int} -- the dimension of the homology to be computed.
      
-     */
+     *//*
     std::cout << "Starting to compute boundary matrices..." << std::endl;
     Matrix high_matrix;
     Matrix low_matrix;
@@ -501,7 +501,7 @@ std::pair<Matrix, Matrix> compute_boundary_matrices_spatiotemporal(std::vector<s
     }
     std::cout << "Finished computing boundary matrices." << std::endl;
     return std::pair<Matrix, Matrix>(high_matrix, low_matrix);
-}
+}*/
 
 std::pair<Matrix, Matrix> compute_boundary_matrices_grades(std::vector<std::vector<input_t>>& points, std::vector<grade_t>& grades, grade_t& max_grade, int hom_dim){
     /* Computes the two boundary matrices of the Vietoris-Rips complex needed to compute the homology of dimension 'hom_dim'.

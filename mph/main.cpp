@@ -2585,7 +2585,7 @@ void critical_points_geometric_pres(){
         std::vector<input_t> max_metric_values;
         max_metric_values.push_back(metric_thresh);
         
-        std::pair<Matrix, Matrix> boundaries = compute_alpha_boundary_matrices(points, metrics, filters, max_metric_values, 1);
+        std::pair<Matrix, Matrix> boundaries = compute_boundary_matrices(points, metrics, filters, max_metric_values, 1);
         
         for(size_t i=0; i<boundaries.second.size(); i++){
             boundaries.second[i].signature_index = i;
@@ -2716,11 +2716,7 @@ void print_usage_and_exit(int exit_code) {
     exit(exit_code);
 }
 
-int main(int argc, char** argv){
-    critical_points_geometric_pres();
-}
 
-/*
 int main(int argc, char** argv) {
     const char* filename = nullptr;
     
@@ -2766,6 +2762,7 @@ int main(int argc, char** argv) {
         }
         
         // TODO: how should choice of metrics and filters be specified in input?
+        
         std::vector<Metric*> metrics;
         metrics.push_back(new SquaredEuclideanMetric());
         std::vector<Filter*> filters;
@@ -2799,4 +2796,4 @@ int main(int argc, char** argv) {
         it.second.print();
     }
     exit(0);
-}*/
+}
