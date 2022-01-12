@@ -2007,9 +2007,6 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
     }
     
     hash_map<size_t, grade_t> row_grade_map;
-    for(size_t j=0; j<generating_set_kernel.size(); j++){
-        row_grade_map[j] = grade_t(generating_set_kernel[j].grade);
-    }
 
     std::cout << "Nonminimal presentation of size "<< syzygiesH.size() << std::endl;
     
