@@ -17,11 +17,13 @@
 #include <iostream>
 #include <fstream>
 
+/* // Commented for Linuxed -- MB
 #include <mach/vm_statistics.h>
 #include <mach/mach_types.h>
 #include <mach/mach_init.h>
 #include <mach/mach_host.h>
-#include<mach/mach.h>
+#include <mach/mach.h>
+*/
 
 // Hash map implemented with std unorderd map
 template <class Key, class T> class hash_map : public std::unordered_map<Key, T> {};
@@ -61,6 +63,7 @@ void mem_usage(double& vm_usage, double& resident_set) {
 
 void get_mem_usage(double& vm_usage, double& resident_set){
 
+  /* // Commented for Linuxed -- MB
     struct task_basic_info t_info;
     mach_msg_type_number_t t_info_count = TASK_BASIC_INFO_COUNT;
 
@@ -72,7 +75,7 @@ void get_mem_usage(double& vm_usage, double& resident_set){
         vm_usage = ((double)t_info.virtual_size/1024)/1024;
         resident_set = ((double)t_info.resident_size/1024)/1024;
     }
-    
+  */
 }
 
 #endif // MPH_UTILS_INCLUDED
