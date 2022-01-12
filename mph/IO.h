@@ -638,7 +638,7 @@ std::vector<std::vector<input_t>> read_point_cloud(std::istream& input_stream, i
     return points;
 }
 
-template <typename SignatureColumn, typename Column> void read_input_file(std::istream& input_stream, std::vector<CustomSignatureColumn<SignatureColumn, Column>>& high_matrix, std::vector<CustomSignatureColumn<SignatureColumn, Column>>& low_matrix){
+template <typename SignatureColumn, typename Column> void read_input_file(std::istream& input_stream, std::vector<CustomSignatureColumn<SignatureColumn, Column>>& high_matrix, std::vector<CustomSignatureColumn<SignatureColumn, Column>>& low_matrix, int precision=1){
     /**
             Read FIRep formatted file (same as rivet).
      */
@@ -658,7 +658,7 @@ template <typename SignatureColumn, typename Column> void read_input_file(std::i
     std::vector<std::vector<double>> high_grades;
     std::vector<std::vector<double>> index_value_lists;
     std::vector<hash_map<double, index_t>> visited_map;
-    int precision = 10000000;
+    //int precision = 10000000;
     for(int d=0; d<dims[0]; d++){
         std::getline(input_stream, line);
         s = std::istringstream(line);

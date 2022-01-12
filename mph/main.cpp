@@ -1294,7 +1294,7 @@ Matrix compute_minimal_generating_set(Matrix& generators){
      */
     
     /* Vectors to store the columns of the GBs */
-    std::cout << "Starting to compute minimal generating set for columns of size: " << generators.size();
+    std::cout << "Starting to compute minimal generating set for columns of size: " << generators.size() << std::endl;
     
     /* Sort columns colexicographically */
     sort(generators.begin(), generators.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
@@ -1425,7 +1425,7 @@ Matrix compute_minimal_generating_set(Matrix& generators){
             minimal_generating_set.push_back(generators[column_index]);
         }
     }
-    get_mem_usage(virt_memory, res_memory);
+    //get_mem_usage(virt_memory, res_memory);
     return minimal_generating_set;
 }
 
@@ -1440,7 +1440,7 @@ std::pair<Matrix, Matrix> compute_minimal_generating_set2(Matrix generators){
      */
     
     /* Vectors to store the columns of the GBs */
-    std::cout << "Starting to compute minimal generating set for columns of size: " << generators.size();
+    std::cout << "Starting to compute minimal generating set for columns of size: " << generators.size()  << std::endl;
     
     for(size_t i=0; i<generators.size(); i++){
         generators[i].signature_index = i;
@@ -1617,7 +1617,7 @@ void insert_sorted( std::vector<signature_t>& cont, signature_t value ) {
     cont.insert( it, value ); // insert before iterator it
 }
 
-std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix& image_columns, Matrix& columns, bool debug=false){
+std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix& image_columns, Matrix& columns, bool debug=true){
     /*
      The main function computing a Groebner basis for the image and kernel of the map described by the list of columns 'columns'.
      
@@ -1630,7 +1630,7 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
      std::vector<SignatureColumn> -- a list of vectors describing a minimal Groebner basis for the kernel of the map.
      */
     
-    std::cout << "Starting to presentation degree by degree...";
+    std::cout << "Starting to presentation degree by degree..."  << std::endl;
     
     /* Sort columns colexicographically */
     sort(columns.begin(), columns.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
@@ -1712,7 +1712,6 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
             grades.pop();
         }
     
-        
         iter_index++;
         size_t grade_hash = grade_hasher(v);
         
@@ -1854,6 +1853,9 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
                     }
                     grade_listsH[pivot].push_back(working_column.grade);
                 }
+                working_column.syzygy = SyzColumn();
+                working_column.syzygy.push(column_entry_t(1, gb_columnsH.size()-1));
+                syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
             }else{
                 syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
                 //syz_pivots.insert(working_column.syzygy.get_pivot_index());
@@ -2005,10 +2007,13 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
     }
     
     hash_map<size_t, grade_t> row_grade_map;
+    for(size_t j=0; j<generating_set_kernel.size(); j++){
+        row_grade_map[j] = grade_t(generating_set_kernel[j].grade);
+    }
 
     std::cout << "Nonminimal presentation of size "<< syzygiesH.size() << std::endl;
     
-    /*
+    
     std::vector<index_t> rows;
     for(auto& entry : row_grade_map){
         rows.push_back(entry.first);
@@ -2018,18 +2023,10 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
     for(size_t i=0; i<rows.size(); i++){
         row_index_map[rows[i]] = i;
     }
-    for(size_t i=0;i<syzygiesH.size(); i++){
-        SignatureColumn column(syzygiesH[i].grade, syzygiesH[i].signature_index);
-        for(auto& entry : syzygiesH[i]){
-            if(row_grade_map.find(entry) != row_grade_map.end()){
-                column.push(column_entry_t(entry, row_index_map[entry]));
-            }
-        }
-        syzygiesH[i].swap(column);
-    }*/
+
     syzygiesH = compute_minimal_generating_set(syzygiesH);
 
-    get_mem_usage(virt_memory, res_memory);
+//get_mem_usage(virt_memory, res_memory);
     return std::pair<Matrix, hash_map<size_t, grade_t>>(syzygiesH, row_grade_map);
 }
 
