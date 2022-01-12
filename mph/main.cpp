@@ -1853,9 +1853,9 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
                     }
                     grade_listsH[pivot].push_back(working_column.grade);
                 }
-                working_column.syzygy = SyzColumn();
-                working_column.syzygy.push(column_entry_t(1, gb_columnsH.size()-1));
-                syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
+                //working_column.syzygy = SyzColumn();
+                //working_column.syzygy.push(column_entry_t(1, gb_columnsH.size()-1));
+                //syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
             }else{
                 syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
                 //syz_pivots.insert(working_column.syzygy.get_pivot_index());
@@ -1999,6 +1999,42 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
                         }else{
                             pivot_map[pivot] = column_index;
                             gb_columns[column_index].last_updated = iter_index;
+                        }
+                    } else {
+                        if(is_new){
+                            SignatureColumn working_column = gb_columns[column_index];
+                            SyzColumn syz_column = SyzColumn();
+                            syz_column.push(column_entry_t(1, column_index));
+                            SignatureColumn syz(working_column.grade, GBH.size(), syz_column);
+                            syz.syzygy.push(column_entry_t(1, GBH.size()));
+                            GBH.push_back(std::vector<signature_t>());
+                            SyzH.push_back(std::vector<signature_t>());
+                            gb_columnsH.push_back(syz);
+                            GBH[GBH.size()-1].push_back(signature_t(syz.grade, gb_columnsH.size()-1));
+                            insert_sorted(reorder_Z_map, signature_t(working_column.grade, GBH.size()-1));
+                            pivot_mapH[i] = gb_columnsH.size()-1;
+                            gb_columnsH[gb_columnsH.size()-1].last_updated = iter_index;
+                            if(working_column.grade == v){
+                                if(grade_listsH[i].size() == 0 || working_column.grade != grade_listsH[i].back()){
+                                    std::vector<grade_t> minimal_elements_tmp;
+                                    for(size_t j=0; j<grade_listsH[i].size(); j++){
+                                        grade_t m_ji = grade_listsH[i][j].m_ji(working_column.grade);
+                                        bool is_minimal = true;
+                                        for(auto& el : minimal_elements_tmp){
+                                            if(el.leq_poset_m(m_ji)){
+                                                is_minimal = false;
+                                                break;
+                                            }
+                                        }
+                                        if(is_minimal){
+                                            minimal_elements_tmp.push_back(m_ji);
+                                            grades.push(working_column.grade.join(grade_listsH[i][j]));
+                                        }
+                                    }
+                                    grade_listsH[i].push_back(working_column.grade);
+                                }
+                            }
+                        
                         }
                     }
                 }
