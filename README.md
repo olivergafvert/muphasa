@@ -1,6 +1,6 @@
 # Muphasa
 
-Muphasa is a software to compute presentations of multi-parameter persistent homology. It was devoloped by Matías R. Bender and Oliver Gäfvert, and Michael Lesnick.
+Muphasa is a software to compute presentations of multi-parameter persistent homology. It was devoloped by Matías R. Bender, Oliver Gäfvert, and Michael Lesnick.
 
 ## Instalation
 
