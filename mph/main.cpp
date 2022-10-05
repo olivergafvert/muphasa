@@ -29,6 +29,7 @@
 #include "matrix.h"
 #include "IO.h"
 #include "examples.h"
+#include "landscapes.h"
 
 
 double res_memory=0;
@@ -947,6 +948,446 @@ Matrix ImageGB(std::vector<SignatureColumn>& columns){
     return gb_columns;
 }
 
+std::pair<Matrix, std::vector<std::pair<grade_t, std::vector<size_t>>>> ImageGB_gradeopt_min_sig_basis(std::vector<SignatureColumn>& columns, MultigradedBasis ker_basis){
+    /*
+     The main function computing a Groebner basis for the image and kernel of the map described by the list of columns 'columns'.
+     
+     Arguments:
+     columns {std::vector<SignatureColumn>} -- columns describing the matrix of a map between two free multigraded momdules.
+     ker_basis {MultigradedBasis} assumed to be sorted in lex.
+     
+     Returns:
+     std::vector<SignatureColumn> -- a list of vectors decribing a minimal Groebner basis for the image of the map.
+     std::vector<SignatureColumn> -- a list of vectors describing a minimal Groebner basis for the kernel of the map.
+     */
+    
+    std::cout << "Starting to compute Groebner bases..." << std::endl;
+    
+    /* Sort columns colexicographically */
+    sort(columns.begin(), columns.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
+         {
+             return lhs.grade.lt_colex(rhs.grade);
+         });
+    // The sorted columns should agree with the columns sorted by index of signature
+    hash_map<size_t, size_t> index_map_high;
+    for(size_t i=0; i<columns.size(); i++){
+        columns[i].signature_index = i;
+        index_map_high[columns[i].grade[columns[i].grade.size()-1]] = i;
+    }
+    
+    /* Compute index set iterator */
+    std::priority_queue<grade_t, std::vector<grade_t>, std::greater<grade_t>> grades;
+    std::vector<std::vector<grade_t>> grade_lists;
+    std::unordered_set<grade_t, GradeHasher> visited_grades;
+    
+    /* Vectors to store the columns of the GBs */
+    std::vector<SignatureColumn> gb_columns;
+    std::vector<VectorColumn> syzygies;
+    gb_columns.reserve(2*columns.size());
+    syzygies.reserve(columns.size());
+    
+    /* Index maps to keep track of signatures */
+    std::vector<std::vector<signature_t>> GB;
+    std::vector<std::vector<signature_t>> Syz;
+    GB.reserve(columns.size());
+    Syz.reserve(columns.size());
+    
+    for(size_t i=0; i<columns.size(); i++){
+        GB.push_back(std::vector<signature_t>());
+        Syz.push_back(std::vector<signature_t>());
+    }
+    
+    /* Main algorithm that iterates through the index set */
+    int column_index;
+    index_t max_pivot=0;
+    for(auto& column : columns){
+        if(max_pivot < column.get_pivot_index()){
+            max_pivot = column.get_pivot_index();
+        }
+    }
+    for(size_t i=0; i<=max_pivot; i++){
+        grade_lists.push_back(std::vector<grade_t>());
+    }
+    for(auto& column : columns){
+        if(visited_grades.find(column.grade) == visited_grades.end()){
+            grades.push(column.grade);
+            visited_grades.insert(column.grade);
+        }
+    }
+    for(auto& entry : ker_basis){
+        if(visited_grades.find(entry.first) == visited_grades.end()){
+            grades.push(entry.first);
+            visited_grades.insert(entry.first);
+        }
+    }
+    
+    std::vector<size_t> grade_hashes;
+    grade_hashes.reserve(columns.size());
+    GradeHasher grade_hasher;
+    for(auto& c : columns){
+        grade_hashes.push_back(grade_hasher(c.grade));
+    }
+    std::vector<index_t> pivot_map(max_pivot+1, -1);
+    index_t pivot;
+    
+    int iter_index = 0;
+    
+    std::vector<std::pair<grade_t, std::vector<size_t>>> sig_basis;
+    
+    size_t ker_basis_index = 0;
+    
+    while(!grades.empty()){
+        grade_t v = grades.top();
+        grades.pop();
+        while(v == grades.top()){
+            grades.pop();
+        }
+        
+        size_t grade_hash = grade_hasher(v);
+        iter_index++;
+        
+        std::vector<size_t> sig_basis_at_v;
+        
+        /* Initialize Macaulay matrix */
+        size_t& index_bound = index_map_high[v[v.size()-1]];
+        for( size_t i=0; i<=index_bound; i++ ){
+            column_index = -1;
+            bool is_new=false;
+            if(GB[i].size() > 0){
+                bool in_syz = false;
+                if(Syz[i].size()>0){
+                    for(size_t j=Syz[i].size()-1; j < Syz[i].size(); j--){
+                        if((Syz[i][j].get_grade()).leq_poset(v)){
+                            in_syz = true;
+                            break;
+                        }
+                    }
+                }
+                if(!in_syz){
+                    for(size_t j=GB[i].size()-1; j < GB[i].size(); j--){
+                        if(GB[i][j].get_grade().leq_poset(v)){
+                            column_index = (int)GB[i][j].get_index();
+                            break;
+                        }
+                    }
+                }
+            } else{
+                if(grade_hash == grade_hashes[i] && columns[i].grade == v){
+                    gb_columns.push_back(columns[i]);
+                    column_index = (int)gb_columns.size()-1;
+                    is_new=true;
+                }
+            }
+            if(column_index > -1){
+                pivot = gb_columns[column_index].get_pivot_index();
+                if(pivot_map[pivot] > -1 && gb_columns[pivot_map[pivot]].last_updated == iter_index){
+                    SignatureColumn working_column = gb_columns[column_index];
+                    while(pivot != -1 && pivot_map[pivot] > -1 && gb_columns[pivot_map[pivot]].last_updated == iter_index){
+                        working_column.plus(gb_columns[pivot_map[pivot]]);
+                        pivot = working_column.get_pivot_index();
+                    }
+                    if(pivot != -1){
+                        sig_basis_at_v.push_back(pivot);
+                        working_column.refresh();
+                        working_column.syzygy.refresh();
+                        gb_columns.push_back(working_column);
+                        GB[i].push_back(signature_t(working_column.grade, gb_columns.size()-1));
+                        pivot_map[pivot] = gb_columns.size()-1;
+                        gb_columns[gb_columns.size()-1].last_updated = iter_index;
+                        if(working_column.grade == v){
+                            if(grade_lists[pivot].size() == 0 || working_column.grade != grade_lists[pivot].back()){
+                                std::vector<grade_t> minimal_elements_tmp;
+                                for(size_t j=0; j<grade_lists[pivot].size(); j++){
+                                    grade_t m_ji = grade_lists[pivot][j].m_ji(working_column.grade);
+                                    bool is_minimal = true;
+                                    for(auto& el : minimal_elements_tmp){
+                                        if(el.leq_poset(m_ji)){
+                                            is_minimal = false;
+                                            break;
+                                        }
+                                    }
+                                    if(is_minimal){
+                                        minimal_elements_tmp.push_back(m_ji);
+                                        grade_t g = working_column.grade.join(grade_lists[pivot][j]);
+                                        if(visited_grades.find(g) == visited_grades.end()){
+                                            grades.push(g);
+                                            visited_grades.insert(g);
+                                        }
+                                    }
+                                }
+                                grade_lists[pivot].push_back(working_column.grade);
+                            }
+                        }
+                    }else{
+                        Syz[i].push_back(signature_t(working_column.grade, syzygies.size()-1));
+                    }
+                } else{
+                    if(pivot != -1){
+                        sig_basis_at_v.push_back(pivot);
+                        pivot_map[pivot] = column_index;
+                        gb_columns[column_index].last_updated = iter_index;
+                        if(is_new){
+                            GB[i].push_back(signature_t(gb_columns[column_index].grade, column_index));
+                            if(grade_lists[pivot].size() == 0 || gb_columns[column_index].grade != grade_lists[pivot].back()){
+                                std::vector<grade_t> minimal_elements_tmp;
+                                for(size_t j=0; j<grade_lists[pivot].size(); j++){
+                                    grade_t m_ji = grade_lists[pivot][j].m_ji(gb_columns[column_index].grade);
+                                    bool is_minimal = true;
+                                    for(auto& el : minimal_elements_tmp){
+                                        if(el.leq_poset(m_ji)){
+                                            is_minimal = false;
+                                            break;
+                                        }
+                                    }
+                                    if(is_minimal){
+                                        minimal_elements_tmp.push_back(m_ji);
+                                        grade_t g = gb_columns[column_index].grade.join(grade_lists[pivot][j]);
+                                        if(visited_grades.find(g) == visited_grades.end()){
+                                            grades.push(g);
+                                            visited_grades.insert(g);
+                                        }
+                                    }
+                                }
+                                grade_lists[pivot].push_back(gb_columns[column_index].grade);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        sig_basis.push_back(std::pair<grade_t, std::vector<size_t>>(v, sig_basis_at_v));
+    }
+    Matrix gb_columns_output;
+    gb_columns_output.reserve(gb_columns.size());
+    for(size_t i=0; i<GB.size(); i++){
+        for(size_t j=0; j<GB[i].size(); j++){
+            gb_columns_output.push_back(gb_columns[GB[i][j].get_index()]);
+        }
+    }
+    std::cout << "Finished computing Groebner basis." << std::endl;
+    return std::pair<Matrix, std::vector<std::pair<grade_t, std::vector<size_t>>>>(gb_columns_output, sig_basis);
+}
+
+CompressedLandscape computeCompressedLandscape(std::vector<SignatureColumn>& presentation, std::vector<grade_t> row_grades){
+    /*
+     The main function computing a compressed persistence landscape from a minimal presentation described by the list of columns 'presentation' and the row grades 'row_grades'.
+     
+     Arguments:
+     presentation {std::vector<SignatureColumn>} -- columns describing a minimal presentation.
+     row_grades {std::vector<grade_t>} grades of the rows in the matrix 'presentation'.
+     
+     Returns:
+     CompressedLandscape -- a compressed representation of a multiparameter persistence landscape.
+     */
+    
+    std::cout << "Starting to compute persistence landscape..." << std::endl;
+    
+    /* Sort columns colexicographically */
+    sort(presentation.begin(), presentation.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
+         {
+             return lhs.grade.lt_colex(rhs.grade);
+         });
+    // The sorted columns should agree with the columns sorted by index of signature
+    hash_map<size_t, size_t> index_map_high;
+    for(size_t i=0; i<presentation.size(); i++){
+        presentation[i].signature_index = i;
+        index_map_high[presentation[i].grade[presentation[i].grade.size()-1]] = i;
+    }
+    
+    /* Compute index set iterator */
+    std::priority_queue<grade_t, std::vector<grade_t>, std::greater<grade_t>> grades;
+    std::vector<std::vector<grade_t>> grade_lists;
+    std::unordered_set<grade_t, GradeHasher> visited_grades;
+    
+    /* Vectors to store the columns of the GBs */
+    std::vector<SignatureColumn> gb_columns;
+    gb_columns.reserve(2*presentation.size());
+    
+    /* Index maps to keep track of signatures */
+    std::vector<std::vector<signature_t>> GB;
+    std::vector<std::vector<signature_t>> Syz;
+    GB.reserve(presentation.size());
+    Syz.reserve(presentation.size());
+    
+    for(size_t i=0; i<presentation.size(); i++){
+        GB.push_back(std::vector<signature_t>());
+        Syz.push_back(std::vector<signature_t>());
+    }
+    
+    /* Main algorithm that iterates through the index set */
+    int column_index;
+    index_t max_pivot=0;
+    for(auto& column : presentation){
+        if(max_pivot < column.get_pivot_index()){
+            max_pivot = column.get_pivot_index();
+        }
+    }
+    for(size_t i=0; i<=max_pivot; i++){
+        grade_lists.push_back(std::vector<grade_t>());
+    }
+    for(auto& column : presentation){
+        if(visited_grades.find(column.grade) == visited_grades.end()){
+            grades.push(column.grade);
+            visited_grades.insert(column.grade);
+        }
+    }
+    
+    std::vector<size_t> grade_hashes;
+    grade_hashes.reserve(presentation.size());
+    GradeHasher grade_hasher;
+    for(auto& c : presentation){
+        grade_hashes.push_back(grade_hasher(c.grade));
+    }
+    std::vector<index_t> pivot_map(max_pivot+1, -1);
+    index_t pivot;
+    
+    int iter_index = 0;
+
+    CompressedLandscape landscape;
+    for(size_t i=0; i<row_grades.size(); i++){
+        landscape.push_back(std::pair<grade_t, std::vector<grade_t>>(row_grades[i], std::vector<grade_t>()));
+    }
+    
+    while(!grades.empty()){
+        grade_t v = grades.top();
+        grades.pop();
+        while(v == grades.top()){
+            grades.pop();
+        }
+        
+        size_t grade_hash = grade_hasher(v);
+        iter_index++;
+        
+        /* Initialize Macaulay matrix */
+        size_t& index_bound = index_map_high[v[v.size()-1]];
+        for( size_t i=0; i<=index_bound; i++ ){
+            column_index = -1;
+            bool is_new=false;
+            if(GB[i].size() > 0){
+                bool in_syz = false;
+                if(Syz[i].size()>0){
+                    for(size_t j=Syz[i].size()-1; j < Syz[i].size(); j--){
+                        if((Syz[i][j].get_grade()).leq_poset(v)){
+                            in_syz = true;
+                            break;
+                        }
+                    }
+                }
+                if(!in_syz){
+                    for(size_t j=GB[i].size()-1; j < GB[i].size(); j--){
+                        if(GB[i][j].get_grade().leq_poset(v)){
+                            column_index = (int)GB[i][j].get_index();
+                            break;
+                        }
+                    }
+                }
+            } else{
+                if(grade_hash == grade_hashes[i] && presentation[i].grade == v){
+                    gb_columns.push_back(presentation[i]);
+                    column_index = (int)gb_columns.size()-1;
+                    is_new=true;
+                }
+            }
+            if(column_index > -1){
+                pivot = gb_columns[column_index].get_pivot_index();
+                if(pivot_map[pivot] > -1 && gb_columns[pivot_map[pivot]].last_updated == iter_index){
+                    SignatureColumn working_column = gb_columns[column_index];
+                    while(pivot != -1 && pivot_map[pivot] > -1 && gb_columns[pivot_map[pivot]].last_updated == iter_index){
+                        working_column.plus(gb_columns[pivot_map[pivot]]);
+                        pivot = working_column.get_pivot_index();
+                    }
+                    if(pivot != -1){
+                        working_column.refresh();
+                        working_column.syzygy.refresh();
+                        gb_columns.push_back(working_column);
+                        GB[i].push_back(signature_t(working_column.grade, gb_columns.size()-1));
+                        pivot_map[pivot] = gb_columns.size()-1;
+                        bool add_to_landscape = true;
+                        for ( auto& w : landscape[pivot].second ) {
+                            if ( w.leq_poset(v) ) {
+                                add_to_landscape = false;
+                                break;
+                            }
+                        }
+                        if ( add_to_landscape ) {
+                            landscape[pivot].second.push_back(v);
+                        }
+                        gb_columns[gb_columns.size()-1].last_updated = iter_index;
+                        if(working_column.grade == v){
+                            if(grade_lists[pivot].size() == 0 || working_column.grade != grade_lists[pivot].back()){
+                                std::vector<grade_t> minimal_elements_tmp;
+                                for(size_t j=0; j<grade_lists[pivot].size(); j++){
+                                    grade_t m_ji = grade_lists[pivot][j].m_ji(working_column.grade);
+                                    bool is_minimal = true;
+                                    for(auto& el : minimal_elements_tmp){
+                                        if(el.leq_poset(m_ji)){
+                                            is_minimal = false;
+                                            break;
+                                        }
+                                    }
+                                    if(is_minimal){
+                                        minimal_elements_tmp.push_back(m_ji);
+                                        grade_t g = working_column.grade.join(grade_lists[pivot][j]);
+                                        if(visited_grades.find(g) == visited_grades.end()){
+                                            grades.push(g);
+                                            visited_grades.insert(g);
+                                        }
+                                    }
+                                }
+                                grade_lists[pivot].push_back(working_column.grade);
+                            }
+                        }
+                    }else{
+                        Syz[i].push_back(signature_t(working_column.grade, -1));
+                    }
+                } else{
+                    if(pivot != -1){
+                        pivot_map[pivot] = column_index;
+                        bool add_to_landscape = true;
+                        for ( auto& w : landscape[pivot].second ) {
+                            if ( w.leq_poset(v) ) {
+                                add_to_landscape = false;
+                                break;
+                            }
+                        }
+                        if ( add_to_landscape ) {
+                            landscape[pivot].second.push_back(v);
+                        }
+                        gb_columns[column_index].last_updated = iter_index;
+                        if(is_new){
+                            GB[i].push_back(signature_t(gb_columns[column_index].grade, column_index));
+                            if(grade_lists[pivot].size() == 0 || gb_columns[column_index].grade != grade_lists[pivot].back()){
+                                std::vector<grade_t> minimal_elements_tmp;
+                                for(size_t j=0; j<grade_lists[pivot].size(); j++){
+                                    grade_t m_ji = grade_lists[pivot][j].m_ji(gb_columns[column_index].grade);
+                                    bool is_minimal = true;
+                                    for(auto& el : minimal_elements_tmp){
+                                        if(el.leq_poset(m_ji)){
+                                            is_minimal = false;
+                                            break;
+                                        }
+                                    }
+                                    if(is_minimal){
+                                        minimal_elements_tmp.push_back(m_ji);
+                                        grade_t g = gb_columns[column_index].grade.join(grade_lists[pivot][j]);
+                                        if(visited_grades.find(g) == visited_grades.end()){
+                                            grades.push(g);
+                                            visited_grades.insert(g);
+                                        }
+                                    }
+                                }
+                                grade_lists[pivot].push_back(gb_columns[column_index].grade);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    std::cout << "Finished computing compressed landscape." << std::endl;
+    return landscape;
+}
+
 Matrix buchberger(Matrix& columns){
     std::cout << "Computing GB for the image using Buchbergers algorithm." << std::endl;
     size_t max_pivot = 0;
@@ -1617,9 +2058,13 @@ void insert_sorted( std::vector<signature_t>& cont, signature_t value ) {
     cont.insert( it, value ); // insert before iterator it
 }
 
-std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix& image_columns, Matrix& columns, bool debug=true){
+std::pair<Matrix, std::vector<grade_t>> computeMinimalPresentation_3p(Matrix& image_columns, Matrix& columns, bool debug=true){
     /*
-     The main function computing a minimal presentation of the homology of the chain complex described by the lists of columns 'image_columns' and 'columns'.
+     The main function computing a minimal presentation of the homology of the chain complex
+     
+                                    C ->^F A ->^G B
+     
+     where the columns of F are given by 'image_columns' and the columns of G by 'columns'.
      
      Arguments:
      image_columns {std::vector<SignatureColumn>} -- a minimal generating set of the image map.
@@ -1698,12 +2143,12 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
         grade_hashes.push_back(grade_hasher(c.grade));
     }
     
+    std::vector<size_t> L_F;
     std::vector<signature_t> reorder_Z_map;
     
     std::set<size_t> syz_pivots;
     
     size_t image_index=0;
-    
     
     int iter_index = 0;
     while(!grades.empty()){
@@ -1828,6 +2273,7 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
                 //throw "Found non-reduced image column";
                 working_column.refresh();
                 working_column.signature_index = GBH.size();
+                L_F.push_back(GBH.size()); // The set keeping track of which kernel columns to remove.
                 GBH.push_back(std::vector<signature_t>());
                 SyzH.push_back(std::vector<signature_t>());
                 gb_columnsH.push_back(working_column);
@@ -1863,7 +2309,7 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
             image_index++;
         }
         
-        /* Initialize Macaulay matrix */
+        /* Reduce columns of map G */
         size_t& index_bound = index_map_high[v[v.size()-1]];
         for( size_t i=0; i<=index_bound; i++ ){
             column_index = -1;
@@ -2041,491 +2487,50 @@ std::pair<Matrix, hash_map<size_t, grade_t>> computePresentationDeg_imopt(Matrix
             }
         }
     }
-    
-    hash_map<size_t, grade_t> row_grade_map;
-    for(size_t j=0; j<gb_columnsH.size(); j++){
-        row_grade_map[j] = grade_t(gb_columnsH[j].grade);
-    }
-
     std::cout << "Nonminimal presentation of size "<< syzygiesH.size() << std::endl;
     
-    
-    std::vector<index_t> rows;
-    for(auto& entry : row_grade_map){
-        rows.push_back(entry.first);
+    Matrix filtered_gb_columnsH;
+    size_t j = 0;
+    for(size_t i=0; i<GBH.size(); i++){
+        if(j<L_F.size() && i == L_F[j]){
+            j++;
+        } else {
+            filtered_gb_columnsH.push_back(gb_columnsH[GBH[i][0].get_index()]);
+        }
     }
-    sort(rows.begin(), rows.end());
-    hash_map<size_t, size_t> row_index_map;
-    for(size_t i=0; i<rows.size(); i++){
-        row_index_map[rows[i]] = i;
-    }
-
-    syzygiesH = compute_minimal_generating_set(syzygiesH);
-
-//get_mem_usage(virt_memory, res_memory);
-    return std::pair<Matrix, hash_map<size_t, grade_t>>(syzygiesH, row_grade_map);
-}
-
-
-std::pair<Matrix, hash_map<size_t, grade_t>> computePersistenceLandscapeNaive(Matrix& presentation_matrix, Matrix& Z){
     
-    std::pair<Matrix, Matrix> gbs_out = computeGroebnerBases_gradeopt_min(presentation_matrix);
-    
-    
-    
-    return std::pair<Matrix, hash_map<size_t, grade_t>>();
-}
-    
-std::pair<Matrix, hash_map<size_t, grade_t>> computePersistenceLandscape(Matrix& image_columns, Matrix& columns, int landscape_dimension, bool debug=true){
-    /*
-     
-     
-     Arguments:
-     image_columns {std::vector<SignatureColumn>} -- a minimal generating set of the image map.
-     columns {std::vector<SignatureColumn>} -- columns describing the matrix of a map between two free multigraded modules.
-     landscape_dimension (int) -- the 
-     
-     Returns:
-     std::vector<SignatureColumn> -- a list of vectors decribing a minimal Groebner basis for the image of the map.
-     std::vector<SignatureColumn> -- a list of vectors describing a minimal Groebner basis for the kernel of the map.
-     */
-    
-    std::cout << "Starting to presentation degree by degree..."  << std::endl;
-    
-    /* Sort columns colexicographically */
-    sort(columns.begin(), columns.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
+    sort(filtered_gb_columnsH.begin(), filtered_gb_columnsH.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
          {
              return lhs.grade.lt_colex(rhs.grade);
          });
-    sort(image_columns.begin(), image_columns.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
-         {
-             return lhs.grade<rhs.grade;
-         });
-    // The sorted columns should agree with the columns sorted by index of signature
-    hash_map<size_t, size_t> index_map_high;
-    for(size_t i=0; i<columns.size(); i++){
-        columns[i].signature_index = i;
-        columns[i].syzygy = SyzColumn();
-        columns[i].syzygy.push(column_entry_t(1, i));
-        index_map_high[columns[i].grade[columns[i].grade.size()-1]] = i;
+    
+    hash_map<size_t, size_t> signature_map;
+    for(size_t j=0; j<filtered_gb_columnsH.size(); j++){
+        signature_map[filtered_gb_columnsH[j].signature_index] = j;
     }
     
-    /* Compute index set iterator */
-    std::priority_queue<grade_t, std::vector<grade_t>, std::greater<grade_t>> grades;
-    std::vector<std::vector<grade_t>> grade_lists;
-    std::vector<std::vector<grade_t>> grade_listsH;
-    
-    /* Vectors to store the columns of the GBs */
-    Matrix gb_columns, gb_columnsH, syzygiesH;
-    
-    
-    /* Index maps to keep track of signatures */
-    std::vector<std::vector<signature_t>> GB, GBH;
-    std::vector<std::vector<signature_t>> Syz, SyzH;
-    
-    for(size_t i=0; i<columns.size(); i++){
-        GB.push_back(std::vector<signature_t>());
-        Syz.push_back(std::vector<signature_t>());
-    }
-    
-    /* Main algorithm that iterates through the index set */
-    int column_index;
-    index_t max_pivot=0;
-    for(auto& column : columns){
-        if(max_pivot < column.get_pivot_index()){
-            max_pivot = column.get_pivot_index();
+    // Reindex syzygiesH
+    Matrix reindexed_syzygies;
+    for(size_t i=0; i<syzygiesH.size(); i++) {
+        SignatureColumn sig_copy(syzygiesH[i]);
+        SignatureColumn working_column(syzygiesH[i].grade, i);
+        while(!sig_copy.empty()){
+            column_entry_t entry = sig_copy.pop_pivot();
+            working_column.push(column_entry_t(1, signature_map[entry.get_index()]));
         }
-    }
-    for(size_t i=0; i<=max_pivot; i++){
-        grade_lists.push_back(std::vector<grade_t>());
-    }
-    for(auto& column : columns){
-        grades.push(column.grade);
-        grade_listsH.push_back(std::vector<grade_t>());
-    }
-    for(auto& column : image_columns){
-        grades.push(column.grade);
-    }
-    index_t pivot;
-    
-    std::vector<index_t> pivot_map(max_pivot+1, -1);
-    std::vector<index_t> pivot_mapH(columns.size(), -1);
-    
-    std::vector<size_t> grade_hashes;
-    grade_hashes.reserve(columns.size());
-    GradeHasher grade_hasher;
-    for(auto& c : columns){
-        grade_hashes.push_back(grade_hasher(c.grade));
+        reindexed_syzygies.push_back(working_column);
     }
     
-    std::vector<signature_t> reorder_Z_map;
+    reindexed_syzygies = compute_minimal_generating_set(reindexed_syzygies);
     
-    std::set<size_t> syz_pivots;
-    
-    size_t image_index=0;
-    
-    
-    int iter_index = 0;
-    while(!grades.empty()){
-        grade_t v = grades.top();
-        while(v == grades.top()){
-            grades.pop();
-        }
-        
-        iter_index++;
-        size_t grade_hash = grade_hasher(v);
-        
-        // B^h_z
-        for( auto& signature : reorder_Z_map ){
-            size_t i = signature.get_index();
-            column_index = -1;
-            //bool in_syz = false;
-            //size_t syz_size = SyzH[i].size();
-            if(SyzH[i].size()==0 && GBH[i][0].get_grade().leq_poset(v)){
-                size_t gb_size = GBH[i].size();
-                column_index = (int)GBH[i][0].get_index();
-                for(size_t j=gb_size-1; j >= 1; j--){
-                    if(GBH[i][j].get_grade().leq_poset(v)){
-                        column_index = (int)GBH[i][j].get_index();
-                        break;
-                    }
-                }
-                /*for(size_t j=syz_size-1; j < syz_size; j--){
-                 if((SyzH[i][j].get_grade()).leq_poset(v)){
-                 in_syz = true;
-                 break;
-                 }
-                 }*/
-            }
-            
-            /*if(!in_syz){
-             size_t gb_size = GBH[i].size();
-             for(size_t j=gb_size-1; j < gb_size; j--){
-             if(GBH[i][j].get_grade().leq_poset(v)){
-             column_index = (int)GBH[i][j].get_index();
-             break;
-             }
-             }
-             }*/
-            
-            
-            if(column_index > -1){
-                pivot = gb_columnsH[column_index].get_pivot_index();
-                if(pivot > -1 && pivot_mapH[pivot] > -1 && gb_columnsH[pivot_mapH[pivot]].last_updated == iter_index){
-                    SignatureColumn working_column = gb_columnsH[column_index];
-                    while(pivot != -1 && pivot_mapH[pivot] > -1 && gb_columnsH[pivot_mapH[pivot]].last_updated == iter_index){
-                        working_column.plus(gb_columnsH[pivot_mapH[pivot]]);
-                        pivot = working_column.get_pivot_index();
-                    }
-                    if(pivot != -1){
-                        working_column.refresh();
-                        working_column.syzygy.refresh();
-                        grade_t grade = working_column.grade;
-                        /*if(GBH[i].size()==1){
-                         gb_columnsH.push_back(working_column);
-                         GBH[i].push_back(signature_t(grade, gb_columnsH.size()-1));
-                         }else{
-                         if(pivot_mapH[gb_columnsH[GBH[i][1].get_index()].get_pivot_index()] == GBH[i][1].get_index()){
-                         pivot_mapH[gb_columnsH[GBH[i][1].get_index()].get_pivot_index()] = -1;
-                         }
-                         gb_columnsH[GBH[i][1].get_index()] = working_column;
-                         GBH[i][1].first = grade;
-                         }*/
-                        gb_columnsH.push_back(working_column);
-                        GBH[i].push_back(signature_t(grade, gb_columnsH.size()-1));
-                        pivot_mapH[pivot] = gb_columnsH.size()-1;
-                        gb_columnsH[gb_columnsH.size()-1].last_updated = iter_index;
-                        if(grade == v){
-                            if(grade_listsH[pivot].size() == 0 || grade != grade_listsH[pivot].back()){
-                                std::vector<grade_t> minimal_elements_tmp;
-                                for(size_t j=0; j<grade_listsH[pivot].size(); j++){
-                                    grade_t m_ji = grade_listsH[pivot][j].m_ji(grade);
-                                    bool is_minimal = true;
-                                    for(auto& el : minimal_elements_tmp){
-                                        if(el.leq_poset_m(m_ji)){
-                                            is_minimal = false;
-                                            break;
-                                        }
-                                    }
-                                    if(is_minimal){
-                                        minimal_elements_tmp.push_back(m_ji);
-                                        grades.push(grade.join(grade_listsH[pivot][j]));
-                                    }
-                                }
-                                grade_listsH[pivot].push_back(grade);
-                            }
-                        }
-                    }else{
-                        working_column.syzygy.refresh();
-                        // if(syz_pivots.find(i) == syz_pivots.end()){
-                        syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
-                        SyzH[i].push_back(signature_t(working_column.grade, syzygiesH.size()-1));
-                        syzygiesH[syzygiesH.size()-1].last_updated = iter_index;
-                        /*  }else{
-                         SyzH[i].push_back(signature_t(working_column.grade, syzygiesH.size()-1));
-                         }*/
-                    }
-                } else{
-                    if(pivot != -1){
-                        pivot_mapH[pivot] = column_index;
-                        gb_columnsH[column_index].last_updated = iter_index;
-                    }
-                }
-            }
-        }
-        
-        /* Reduce image columns */
-        while(image_index < image_columns.size() && image_columns[image_index].grade == v){
-            SignatureColumn working_column(image_columns[image_index]);
-            working_column.syzygy = SyzColumn();
-            pivot = working_column.get_pivot_index();
-            while(pivot != -1 && pivot_mapH[pivot] != -1 && gb_columnsH[pivot_mapH[pivot]].last_updated == iter_index){
-                working_column.plus(gb_columnsH[pivot_mapH[pivot]]);
-                pivot = working_column.get_pivot_index();
-            }
-            working_column.syzygy.refresh();
-            if(pivot != -1){
-                //throw "Found non-reduced image column";
-                working_column.refresh();
-                working_column.signature_index = GBH.size();
-                GBH.push_back(std::vector<signature_t>());
-                SyzH.push_back(std::vector<signature_t>());
-                gb_columnsH.push_back(working_column);
-                GBH[GBH.size()-1].push_back(signature_t(working_column.grade, gb_columnsH.size()-1));
-                insert_sorted(reorder_Z_map, signature_t(working_column.grade, GBH.size()-1));
-                pivot_mapH[pivot] = gb_columnsH.size()-1;
-                gb_columnsH[gb_columnsH.size()-1].last_updated = iter_index;
-                if(grade_listsH[pivot].size() == 0 || working_column.grade != grade_listsH[pivot].back()){
-                    std::vector<grade_t> minimal_elements_tmp;
-                    for(size_t j=0; j<grade_listsH[pivot].size(); j++){
-                        grade_t m_ji = grade_listsH[pivot][j].m_ji(working_column.grade);
-                        bool is_minimal = true;
-                        for(auto& el : minimal_elements_tmp){
-                            if(el.leq_poset_m(m_ji)){
-                                is_minimal = false;
-                                break;
-                            }
-                        }
-                        if(is_minimal){
-                            minimal_elements_tmp.push_back(m_ji);
-                            grades.push(working_column.grade.join(grade_listsH[pivot][j]));
-                        }
-                    }
-                    grade_listsH[pivot].push_back(working_column.grade);
-                }
-                //working_column.syzygy = SyzColumn();
-                //working_column.syzygy.push(column_entry_t(1, gb_columnsH.size()-1));
-                //syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
-            }else{
-                syzygiesH.push_back(SignatureColumn(working_column.grade, syzygiesH.size(), working_column.syzygy));
-                //syz_pivots.insert(working_column.syzygy.get_pivot_index());
-            }
-            image_index++;
-        }
-        
-        /* Initialize Macaulay matrix */
-        size_t& index_bound = index_map_high[v[v.size()-1]];
-        for( size_t i=0; i<=index_bound; i++ ){
-            column_index = -1;
-            bool is_new=false;
-            if(GB[i].size() > 0){
-                if(pivot_mapH[i] == -1 || gb_columnsH[pivot_mapH[i]].last_updated != iter_index){
-                    for(size_t j=GB[i].size()-1; j < GB[i].size(); j--){
-                        if(GB[i][j].get_grade().leq_poset(v)){
-                            column_index = (int)GB[i][j].get_index();
-                            break;
-                        }
-                    }
-                }
-            } else{
-                if(pivot_mapH[i] == -1 && grade_hash == grade_hashes[i] && columns[i].grade == v){
-                    gb_columns.push_back(columns[i]);
-                    column_index = (int)gb_columns.size()-1;
-                    is_new=true;
-                }
-            }
-            if(column_index > -1){
-                pivot = gb_columns[column_index].get_pivot_index();
-                if(pivot != -1 && pivot_map[pivot] != -1 && gb_columns[pivot_map[pivot]].last_updated == iter_index){
-                    SignatureColumn working_column = gb_columns[column_index];
-                    while(pivot != -1 && pivot_map[pivot] != -1 && gb_columns[pivot_map[pivot]].last_updated == iter_index){
-                        working_column.plus(gb_columns[pivot_map[pivot]]);
-                        pivot = working_column.get_pivot_index();
-                    }
-                    if(pivot != -1){
-                        working_column.refresh();
-                        working_column.syzygy.refresh();
-                        grade_t grade = working_column.grade;
-                        if(is_new){
-                            gb_columns[column_index] = working_column;
-                            GB[i].push_back(signature_t(grade, column_index));
-                            pivot_map[pivot] = column_index;
-                            gb_columns[column_index].last_updated = iter_index;
-                        }else{
-                            /*if(GB[i].size()==1){
-                             gb_columns.push_back(working_column);
-                             GB[i].push_back(signature_t(grade, gb_columns.size()-1));
-                             }else{
-                             if(pivot_map[gb_columns[GB[i][1].get_index()].get_pivot_index()] == GB[i][1].get_index()){
-                             pivot_map[gb_columns[GB[i][1].get_index()].get_pivot_index()] = -1;
-                             }
-                             gb_columns[GB[i][1].get_index()] = working_column;
-                             GB[i][1].first = grade;
-                             }*/
-                            gb_columns.push_back(working_column);
-                            GB[i].push_back(signature_t(grade, gb_columns.size()-1));
-                            pivot_map[pivot] = gb_columns.size()-1;
-                            gb_columns[gb_columns.size()-1].last_updated = iter_index;
-                        }
-                        if(grade == v){
-                            if(grade_lists[pivot].size() == 0 || grade != grade_lists[pivot].back()){
-                                std::vector<grade_t> minimal_elements_tmp;
-                                for(size_t j=0; j<grade_lists[pivot].size(); j++){
-                                    grade_t m_ji = grade_lists[pivot][j].m_ji(grade);
-                                    bool is_minimal = true;
-                                    for(auto& el : minimal_elements_tmp){
-                                        if(el.leq_poset_m(m_ji)){
-                                            is_minimal = false;
-                                            break;
-                                        }
-                                    }
-                                    if(is_minimal){
-                                        minimal_elements_tmp.push_back(m_ji);
-                                        grades.push(grade.join(grade_lists[pivot][j]));
-                                    }
-                                }
-                                grade_lists[pivot].push_back(grade);
-                            }
-                        }
-                    }else{
-                        if(is_new){
-                            gb_columns.pop_back();
-                        }
-                        working_column.syzygy.refresh();
-                        SignatureColumn syz(working_column.grade, GBH.size(), working_column.syzygy);
-                        syz.syzygy.push(column_entry_t(1, GBH.size()));
-                        GBH.push_back(std::vector<signature_t>());
-                        SyzH.push_back(std::vector<signature_t>());
-                        gb_columnsH.push_back(syz);
-                        GBH[GBH.size()-1].push_back(signature_t(syz.grade, gb_columnsH.size()-1));
-                        insert_sorted(reorder_Z_map, signature_t(working_column.grade, GBH.size()-1));
-                        pivot_mapH[i] = gb_columnsH.size()-1;
-                        gb_columnsH[gb_columnsH.size()-1].last_updated = iter_index;
-                        if(working_column.grade == v){
-                            if(grade_listsH[i].size() == 0 || working_column.grade != grade_listsH[i].back()){
-                                std::vector<grade_t> minimal_elements_tmp;
-                                for(size_t j=0; j<grade_listsH[i].size(); j++){
-                                    grade_t m_ji = grade_listsH[i][j].m_ji(working_column.grade);
-                                    bool is_minimal = true;
-                                    for(auto& el : minimal_elements_tmp){
-                                        if(el.leq_poset_m(m_ji)){
-                                            is_minimal = false;
-                                            break;
-                                        }
-                                    }
-                                    if(is_minimal){
-                                        minimal_elements_tmp.push_back(m_ji);
-                                        grades.push(working_column.grade.join(grade_listsH[i][j]));
-                                    }
-                                }
-                                grade_listsH[i].push_back(working_column.grade);
-                            }
-                        }
-                    }
-                } else{
-                    if(pivot != -1){
-                        if(is_new){
-                            GB[i].push_back(signature_t(gb_columns[column_index].grade, column_index));
-                            pivot_map[pivot] = column_index;
-                            gb_columns[column_index].last_updated = iter_index;
-                            if(grade_lists[pivot].size() == 0 || gb_columns[column_index].grade != grade_lists[pivot].back()){
-                                std::vector<grade_t> minimal_elements_tmp;
-                                for(size_t j=0; j<grade_lists[pivot].size(); j++){
-                                    grade_t m_ji = grade_lists[pivot][j].m_ji(gb_columns[column_index].grade);
-                                    bool is_minimal = true;
-                                    for(auto& el : minimal_elements_tmp){
-                                        if(el.leq_poset_m(m_ji)){
-                                            is_minimal = false;
-                                            break;
-                                        }
-                                    }
-                                    if(is_minimal){
-                                        minimal_elements_tmp.push_back(m_ji);
-                                        grades.push(gb_columns[column_index].grade.join(grade_lists[pivot][j]));
-                                    }
-                                }
-                                grade_lists[pivot].push_back(gb_columns[column_index].grade);
-                            }
-                        }else{
-                            pivot_map[pivot] = column_index;
-                            gb_columns[column_index].last_updated = iter_index;
-                        }
-                    } else {
-                        if(is_new){
-                            SignatureColumn working_column = gb_columns[column_index];
-                            SyzColumn syz_column = SyzColumn();
-                            syz_column.push(column_entry_t(1, column_index));
-                            SignatureColumn syz(working_column.grade, GBH.size(), syz_column);
-                            syz.syzygy.push(column_entry_t(1, GBH.size()));
-                            GBH.push_back(std::vector<signature_t>());
-                            SyzH.push_back(std::vector<signature_t>());
-                            gb_columnsH.push_back(syz);
-                            GBH[GBH.size()-1].push_back(signature_t(syz.grade, gb_columnsH.size()-1));
-                            insert_sorted(reorder_Z_map, signature_t(working_column.grade, GBH.size()-1));
-                            pivot_mapH[i] = gb_columnsH.size()-1;
-                            gb_columnsH[gb_columnsH.size()-1].last_updated = iter_index;
-                            if(working_column.grade == v){
-                                if(grade_listsH[i].size() == 0 || working_column.grade != grade_listsH[i].back()){
-                                    std::vector<grade_t> minimal_elements_tmp;
-                                    for(size_t j=0; j<grade_listsH[i].size(); j++){
-                                        grade_t m_ji = grade_listsH[i][j].m_ji(working_column.grade);
-                                        bool is_minimal = true;
-                                        for(auto& el : minimal_elements_tmp){
-                                            if(el.leq_poset_m(m_ji)){
-                                                is_minimal = false;
-                                                break;
-                                            }
-                                        }
-                                        if(is_minimal){
-                                            minimal_elements_tmp.push_back(m_ji);
-                                            grades.push(working_column.grade.join(grade_listsH[i][j]));
-                                        }
-                                    }
-                                    grade_listsH[i].push_back(working_column.grade);
-                                }
-                            }
-                            
-                        }
-                    }
-                }
-            }
-        }
+    std::vector<grade_t> row_grades;
+    for(auto& column : filtered_gb_columnsH) {
+        row_grades.push_back(column.grade);
     }
-    
-    hash_map<size_t, grade_t> row_grade_map;
-    for(size_t j=0; j<gb_columnsH.size(); j++){
-        row_grade_map[j] = grade_t(gb_columnsH[j].grade);
-    }
-    
-    std::cout << "Nonminimal presentation of size "<< syzygiesH.size() << std::endl;
-    
-    
-    std::vector<index_t> rows;
-    for(auto& entry : row_grade_map){
-        rows.push_back(entry.first);
-    }
-    sort(rows.begin(), rows.end());
-    hash_map<size_t, size_t> row_index_map;
-    for(size_t i=0; i<rows.size(); i++){
-        row_index_map[rows[i]] = i;
-    }
-    
-    syzygiesH = compute_minimal_generating_set(syzygiesH);
-    
-    //get_mem_usage(virt_memory, res_memory);
-    return std::pair<Matrix, hash_map<size_t, grade_t>>(syzygiesH, row_grade_map);
-}
 
+//get_mem_usage(virt_memory, res_memory);
+    return std::pair<Matrix, std::vector<grade_t>>(reindexed_syzygies, row_grades);
+}
 
 std::pair<Matrix, hash_map<size_t, grade_t>> compute_presentation_2p(Matrix& image_generators, Matrix& generating_set_kernel){
     /** Computes a minimal presentation of the ith homology module using generators of the kernel and image of
@@ -2824,6 +2829,261 @@ std::pair<Matrix, hash_map<size_t, grade_t>> compute_presentation_schreyer(Matri
 }
 
 
+
+Landscape compute_landscape_naive_rank(Matrix presentation, std::vector<grade_t> row_grades, grade_t v_max, int lanscape_dim) {
+    Landscape lanscape;
+    
+    std::vector<std::vector<index_t>> base_set;
+    for(size_t i=0; i<v_max.size(); i++){
+        std::vector<index_t> row;
+        for(size_t j=0; j<v_max[i]; j++){
+            row.push_back(j);
+        }
+        base_set.push_back(row);
+    }
+    
+    index_t max_pivot=0;
+    for(auto& column : presentation){
+        if(max_pivot < column.get_pivot().get_index()){
+            max_pivot = column.get_pivot().get_index();
+        }
+    }
+    
+    Iterator_lex grade_iterator = Iterator_lex(base_set);
+    
+    grade_t vv;
+    vv.push_back(4);vv.push_back(4);vv.push_back(7);
+    
+    while(grade_iterator.has_next()){
+        grade_t v = grade_iterator.next();
+        size_t max_rank_index = 0;
+        if ( v == vv ) {
+            std::cout << std::endl;
+        }
+        for ( size_t k=0; k<=v[v.size()-1]; k++ ) {
+            // Calculate rank of map from v-i to v+i
+            index_t pivot;
+            std::vector<index_t> pivot_map(max_pivot+1, -1);
+            grade_t w(v);
+            w[w.size()-1] += k;
+            Matrix reduced_basis;
+            for( size_t i=0; i<presentation.size(); i++ ){
+                if ( presentation[i].grade.leq_poset(w) ) {
+                    SignatureColumn working_column = presentation[i];
+                    pivot = working_column.get_pivot().get_index();
+                    while(pivot != -1 && pivot_map[pivot] > -1){// && gb_columns[pivot_map[pivot]].last_updated == iter_index){
+                        working_column.plus(reduced_basis[pivot_map[pivot]]);
+                        pivot = working_column.get_pivot().get_index();
+                    }
+                    if(pivot != -1){
+                        pivot_map[pivot] = reduced_basis.size();
+                        reduced_basis.push_back(working_column);
+                    }
+                }
+            }
+            w[w.size()-1] = v[v.size()-1]-k;
+            int current_rank = 0;
+            for(size_t i=0; i<row_grades.size(); i++) {
+                if ( row_grades[i].leq_poset(w) && pivot_map[i] == -1 ) {
+                    current_rank++;
+                }
+            }
+            if (current_rank < lanscape_dim) {
+                break;
+            } else {
+                max_rank_index = k;
+            }
+        }
+        lanscape.push_back(std::pair<grade_t, size_t>(v, max_rank_index));
+    }
+    return lanscape;
+}
+
+Landscape computeLandscapeNaive(Matrix presentation, std::vector<grade_t> row_grades, grade_t v_max, int lanscape_dim) {
+    Landscape lanscape;
+    
+    std::vector<std::vector<index_t>> base_set;
+    for(size_t i=0; i<v_max.size(); i++){
+        std::vector<index_t> row;
+        for(size_t j=0; j<v_max[i]; j++){
+            row.push_back(j);
+        }
+        base_set.push_back(row);
+    }
+    
+    index_t max_pivot=0;
+    for(auto& column : presentation){
+        if(max_pivot < column.get_pivot().get_index()){
+            max_pivot = column.get_pivot().get_index();
+        }
+    }
+    
+    Iterator_lex grade_iterator = Iterator_lex(base_set);
+    
+    std::unordered_map<grade_t, std::pair<Matrix, Matrix>, GradeHasher> H_basis_map;
+    
+    while(grade_iterator.has_next()){
+        grade_t v = grade_iterator.next();
+        size_t max_rank_index = 0;
+        for ( size_t k=0; k<=v[v.size()-1]; k++ ) {
+            // Calculate rank of map from v-i to v+i
+            grade_t w(v);
+            w[w.size()-1] += k;
+            
+            if ( H_basis_map.find(w) == H_basis_map.end() ) {
+                index_t pivot;
+                std::vector<index_t> pivot_map(max_pivot+1, -1);
+                
+                Matrix reduced_basis;
+                for( size_t i=0; i<presentation.size(); i++ ){
+                    if ( presentation[i].grade.leq_poset(w) ) {
+                        SignatureColumn working_column = presentation[i];
+                        pivot = working_column.get_pivot().get_index();
+                        while(pivot != -1 && pivot_map[pivot] > -1){// && gb_columns[pivot_map[pivot]].last_updated == iter_index){
+                            working_column.plus(reduced_basis[pivot_map[pivot]]);
+                            pivot = working_column.get_pivot().get_index();
+                        }
+                        if(pivot != -1){
+                            pivot_map[pivot] = reduced_basis.size();
+                            reduced_basis.push_back(working_column);
+                        }
+                    }
+                }
+                size_t im_basis_index = reduced_basis.size();
+                // Construct H-basis
+                for ( size_t i=0; i<row_grades.size(); i++ ) {
+                    if (row_grades[i].leq_poset(w)){
+                        SignatureColumn working_column(row_grades[i], reduced_basis.size());
+                        working_column.push(column_entry_t(1, i));
+                        pivot = working_column.get_pivot().get_index();
+                        while(pivot != -1 && pivot_map[pivot] > -1){// && gb_columns[pivot_map[pivot]].last_updated == iter_index){
+                            working_column.plus(reduced_basis[pivot_map[pivot]]);
+                            pivot = working_column.get_pivot().get_index();
+                        }
+                        if(pivot != -1){
+                            pivot_map[pivot] = reduced_basis.size();
+                            reduced_basis.push_back(working_column);
+                        }
+                    }
+                }
+                hash_map<size_t, size_t> reindex_map;
+                size_t pivot_index = 0;
+                for(size_t i=0; i<row_grades.size(); i++){
+                    if( row_grades[i].leq_poset(w) ) {
+                        reindex_map[i] = pivot_index;
+                        pivot_index++;
+                    }
+                }
+                
+                // Reindex reduced_basis
+                Matrix H_basis;
+                Matrix reindexed_reduced_basis;
+                for(size_t i=0; i<reduced_basis.size(); i++) {
+                    SignatureColumn sig_copy(reduced_basis[i]);
+                    SignatureColumn working_column(reduced_basis[i].grade, i);
+                    while(!sig_copy.empty()){
+                        column_entry_t entry = sig_copy.pop_pivot();
+                        working_column.push(column_entry_t(1, reindex_map[entry.get_index()]));
+                    }
+                    reindexed_reduced_basis.push_back(working_column);
+                    if ( i>=im_basis_index ) {
+                        H_basis.push_back(working_column);
+                    }
+                }
+                
+                
+                Matrix reduced_basis_inverse = inverse(reindexed_reduced_basis);
+                
+                Matrix H_basis_inv = mat_v_cut(reduced_basis_inverse, H_basis.size());
+                
+                H_basis_map[w] = std::pair<Matrix, Matrix>(H_basis, H_basis_inv);
+            }
+            
+            Matrix A;
+            size_t pivot_index = 0;
+            for (size_t i=0; i<row_grades.size(); i++) {
+                if ( row_grades[i].leq_poset(w) ) {
+                    if ( row_grades[i][v.size()-1] <= v[v.size()-1]-k ) {
+                        SignatureColumn working_column(row_grades[i], A.size());
+                        working_column.push(column_entry_t(1, pivot_index));
+                        A.push_back(working_column);
+                    }
+                    pivot_index++;
+                }
+            }
+            grade_t z(v);
+            z[z.size()-1] = v[v.size()-1]-k;
+            Matrix H_basis = H_basis_map[z].first;
+            Matrix H_basis_inv = H_basis_map[w].second;
+            
+            Matrix inter = matmul(A, H_basis);
+            Matrix B = matmul(H_basis_inv, inter);
+            std::vector<index_t> pivot_map(row_grades.size()+1, -1);
+            
+            for( size_t i=0; i<B.size(); i++ ){
+                index_t pivot = B[i].get_pivot().get_index();
+                while(pivot != -1 && pivot_map[pivot] > -1){
+                    B[i].plus(B[pivot_map[pivot]]);
+                    pivot = B[i].get_pivot().get_index();
+                }
+                if(pivot != -1){
+                    pivot_map[pivot] = i;
+                }
+            }
+            
+            size_t rank = 0;
+            for(size_t i=0; i<row_grades.size(); i++) {
+                if ( pivot_map[i] != -1 ) {
+                    rank++;
+                }
+            }
+            if (rank < lanscape_dim) {
+                break;
+            } else {
+                max_rank_index = k;
+            }
+        }
+        lanscape.push_back(std::pair<grade_t, size_t>(v, max_rank_index));
+    }
+    return lanscape;
+}
+
+
+Landscape compute_landscape_peaks(MultigradedBasis ker_basis, MultigradedBasis p_basis) {
+    Landscape lanscape;
+    
+    
+    return lanscape;
+}
+
+Landscape compute_landscape_naive(MultigradedBasis ker_basis, MultigradedBasis p_basis, grade_t v_max) {
+    Landscape lanscape;
+    
+    size_t v_r = v_max[v_max.size()-1];
+    
+    std::vector<std::vector<index_t>> base_set;
+    for(size_t i=0; i<v_max.size()-1; i++){
+        std::vector<index_t> row;
+        for(size_t j=0; j<v_max[i]; j++){
+            row.push_back(j);
+        }
+        base_set.push_back(row);
+    }
+        
+    Iterator_lex grade_iterator = Iterator_lex(base_set);
+    
+    while(grade_iterator.has_next()){
+        grade_t v = grade_iterator.next();
+        for ( size_t i=0; i<v_r; i++ ) {
+            
+        }
+    }
+    
+    return lanscape;
+}
+
+
+
 /* Python interface */
 
 struct GradedMatrix{
@@ -2925,7 +3185,7 @@ GradedMatrix presentation_FIrep(std::vector<std::vector<int>>& high_matrix, std:
         Matrix kernel = computeKernel_2p(M_l);
         presentation_output = compute_presentation_2p(M_h, kernel);
     }else{
-        presentation_output = computePresentationDeg_imopt(M_h, M_l);
+        std::pair<Matrix, std::vector<grade_t>> minimal_presentation = computeMinimalPresentation_3p(M_h, M_l);
     }
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::seconds>(stop - start);
@@ -2958,7 +3218,7 @@ GradedMatrix presentation_dm(std::vector<std::vector<std::vector<input_t>>>& dis
         presentation = compute_presentation_2p(boundary_matrices.first, kernel);
     }else{
         std::pair<Matrix, Matrix> gbs = computeGroebnerBases(boundary_matrices.second);
-        presentation = computePresentationDeg_imopt(boundary_matrices.first, gbs.second);
+        std::pair<Matrix, std::vector<grade_t>> minimal_presentation = computeMinimalPresentation_3p(boundary_matrices.first, gbs.second);
     }
     GradedMatrix graded_matrix = translateOutputMatrix(presentation.first);
     for(std::pair<size_t, grade_t> entry : presentation.second){
@@ -3004,7 +3264,7 @@ GradedMatrix presentation(std::vector<std::vector<input_t>>& _points, std::vecto
         Matrix kernel = computeKernel_2p(boundary_matrices.second);
         presentation = compute_presentation_2p(boundary_matrices.first, kernel);
     }else{
-        presentation = computePresentationDeg_imopt(boundary_matrices.first, boundary_matrices.second);
+        std::pair<Matrix, std::vector<grade_t>> minimal_presentation = computeMinimalPresentation_3p(boundary_matrices.first, boundary_matrices.second);
     }
     GradedMatrix graded_matrix = translateOutputMatrix(presentation.first);
     for(std::pair<size_t, grade_t> entry : presentation.second){
@@ -3024,12 +3284,12 @@ GradedMatrix presentation(std::vector<std::vector<input_t>>& _points, std::vecto
 
 std::vector<double> run_gb_singatures_pres(Matrix& input_matrix, Matrix& image, bool debug=false){
     auto start = std::chrono::high_resolution_clock::now();
-    std::pair<Matrix, hash_map<size_t, grade_t>> presentation_sign = computePresentationDeg_imopt(image, input_matrix, debug);
+    std::pair<Matrix, std::vector<grade_t>> minimal_presentation = computeMinimalPresentation_3p(image, input_matrix, debug);
     auto stop = std::chrono::high_resolution_clock::now();
     auto b_time = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-    std::cout << " Presentation size: " << presentation_sign.first.size() << std::endl;//gbs2.size() << std::endl;
+    std::cout << " Presentation size: " << minimal_presentation.first.size() << std::endl;//gbs2.size() << std::endl;
     double time = b_time.count();
-    double size = presentation_sign.first.size();
+    double size = minimal_presentation.first.size();
     return std::vector<double>{time, res_memory, size};
 }
 
@@ -3211,6 +3471,7 @@ void print_usage_and_exit(int exit_code) {
 }
 
 
+
 int main(int argc, char** argv) {
     const char* filename = nullptr;
     
@@ -3239,6 +3500,45 @@ int main(int argc, char** argv) {
     }
     
     std::pair<Matrix, hash_map<size_t, grade_t>> presentation;
+    Matrix high_matrix, low_matrix;
+    
+    std::vector<std::vector<std::vector<input_t>>> trajectories = time_varying_point_cloud_trajectories(4, 10, 3, 2);
+    //std::pair<Matrix, Matrix> boundary_matrices_out = get_random_boundary_matrix(100, 1, 3);
+    
+    for(size_t i=0; i<trajectories.size(); i++){
+        for (size_t j=0; j<trajectories[i].size(); j++){
+            std::cout << "Point: (" << trajectories[i][j][0] << ", "<< trajectories[i][j][1] << ", "<< trajectories[i][j][2] << ")" << std::endl;
+        }
+    }
+    
+    Metric* m = new SquaredEuclideanMetric();
+    std::pair<Matrix, Matrix> boundary_matrices_out = compute_boundary_matrices_spatiotemporal(trajectories, m, 1000, 1);
+    high_matrix = boundary_matrices_out.first;
+    low_matrix = boundary_matrices_out.second;
+    
+    high_matrix.print();
+    
+    apply_diagonal_grade_transform(high_matrix);
+    apply_diagonal_grade_transform(low_matrix);
+
+    std::cout << "Boundary matrices size: "<<high_matrix.size()<<" "<<low_matrix.size()<<std::endl;
+    
+    std::pair<Matrix, std::vector<grade_t>> minimal_presentation = computeMinimalPresentation_3p(high_matrix, low_matrix);
+    
+    grade_t v_max;
+    v_max.push_back(8);v_max.push_back(8);v_max.push_back(8);
+    
+    Landscape landscape = computeLandscapeNaive(Matrix(minimal_presentation.first), std::vector<grade_t>(minimal_presentation.second), v_max, 1);
+    CompressedLandscape compressed_landscape = computeCompressedLandscape(minimal_presentation.first, minimal_presentation.second);
+    
+    for (auto& pair : landscape) {
+        pair.first.print();
+        std::cout << "Values " << pair.second << " " << compressed_landscape(pair.first, 1) << std::endl;
+    }
+    
+    
+    
+    /*
     if(firep){
         Matrix high_matrix, low_matrix;
         std::ifstream file_stream(filename);
@@ -3277,7 +3577,8 @@ int main(int argc, char** argv) {
         }
         presentation = computePresentationDeg_imopt(boundary_matrices.first, boundary_matrices.second);
     }
-    
+    */
+     
     std::cout << "Presentation matrix: \n";
     presentation.first.print();
     
@@ -3289,5 +3590,7 @@ int main(int argc, char** argv) {
     for(auto& it: presentation.second){
         it.second.print();
     }
+    std::cout << "Presentation matrix size: (" << presentation.second.size() << ", " << presentation.first.size() << ")"<<std::endl;
     exit(0);
 }
+

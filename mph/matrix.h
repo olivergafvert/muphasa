@@ -328,6 +328,74 @@ void reduce_columns_par(Matrix& columns, Matrix& additional_columns, std::vector
 }
 
 
+Matrix inverse(Matrix& M) {
+    Matrix M_inv;
+    for ( size_t i=0; i<M.size(); i++ ) {
+        M[i].syzygy = SyzColumn();
+        M[i].syzygy.push(column_entry_t(1, i));
+    }
+    index_t pivot;
+    std::vector<index_t> pivot_map(M.size()+1, -1);
+    for( size_t i=0; i<M.size(); i++ ){
+        SignatureColumn working_column = M[i];
+        pivot = working_column.get_pivot().get_index();
+        while(pivot != -1 && pivot_map[pivot] > -1){
+            working_column.plus(M[pivot_map[pivot]]);
+            pivot = working_column.get_pivot().get_index();
+        }
+        if(pivot != -1){
+            pivot_map[pivot] = i;
+        }
+    }
+    for( size_t i=0; i<M.size(); i++ ){
+        SignatureColumn working_column = M[i];
+        working_column.pop_pivot();
+        pivot = working_column.get_pivot().get_index();
+        while(pivot != -1 && pivot_map[pivot] > -1){
+            working_column.plus(M[pivot_map[pivot]]);
+            pivot = working_column.get_pivot().get_index();
+        }
+        if (pivot != -1) {
+            throw "Failed to compute inverse";
+        }
+        SignatureColumn inv_col(M[i].grade, M[i].get_pivot().get_index(), working_column.syzygy);
+        M_inv.push_back(inv_col);
+    }
+    sort(M_inv.begin(), M_inv.end(), [](  SignatureColumn& lhs,  SignatureColumn& rhs )
+         {
+             return lhs.signature_index < rhs.signature_index ;
+         });
+    return M_inv;
+}
+
+Matrix mat_v_cut(Matrix& M, index_t index) {
+    Matrix Mv;
+    for ( size_t i=0; i<M.size(); i++ ) {
+        SignatureColumn working_column = M[i];
+        index_t pivot = working_column.get_pivot().get_index();
+        while( pivot >= index ) {
+            working_column.pop_pivot();
+            pivot = working_column.get_pivot().get_index();
+        }
+        Mv.push_back(working_column);
+    }
+    return Mv;
+}
+
+Matrix matmul(Matrix& A, Matrix& B) {
+    Matrix M;
+    for ( size_t i=0; i<B.size(); i++ ) {
+        SignatureColumn working_column = B[i];
+        SignatureColumn ret(B[i].grade, i);
+        while( !working_column.empty() ) {
+            index_t pivot = working_column.get_pivot().get_index();
+            ret.plus(A[pivot]);
+            working_column.pop_pivot();
+        }
+        M.push_back(ret);
+    }
+    return M;
+}
 
 
 
