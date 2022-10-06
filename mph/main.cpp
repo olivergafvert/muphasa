@@ -1385,6 +1385,7 @@ CompressedLandscape computeCompressedLandscape(std::vector<SignatureColumn>& pre
         }
     }
     std::cout << "Finished computing compressed landscape." << std::endl;
+    landscape.sort_colex();
     return landscape;
 }
 
@@ -2078,10 +2079,28 @@ std::pair<Matrix, std::vector<grade_t>> computeMinimalPresentation_3p(Matrix& im
     std::cout << "Starting to presentation degree by degree..."  << std::endl;
     
     /* Sort columns colexicographically */
+    for(size_t i=0; i<columns.size(); i++){
+        columns[i].signature_index = i;
+    }
     sort(columns.begin(), columns.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
          {
              return lhs.grade.lt_colex(rhs.grade);
          });
+    hash_map<size_t, size_t> kernel_reorder_map;
+    for(size_t j=0; j<columns.size(); j++){
+        kernel_reorder_map[columns[j].signature_index] = j;
+    }
+    
+    // Reindex image columns
+    for(size_t i=0; i<image_columns.size(); i++) {
+        SignatureColumn image_copy(image_columns[i]);
+        SignatureColumn working_column(image_columns[i].grade, i);
+        while(!image_copy.empty()){
+            column_entry_t entry = image_copy.pop_pivot();
+            working_column.push(column_entry_t(1, kernel_reorder_map[entry.get_index()]));
+        }
+        image_columns[i] = working_column;
+    }
     sort(image_columns.begin(), image_columns.end(), [ ](  SignatureColumn& lhs,  SignatureColumn& rhs )
          {
              return lhs.grade<rhs.grade;
@@ -2991,8 +3010,19 @@ Landscape computeLandscapeNaive(Matrix presentation, std::vector<grade_t> row_gr
                     }
                 }
                 
-                
+                std::reverse(reindexed_reduced_basis.begin(), reindexed_reduced_basis.end());
                 Matrix reduced_basis_inverse = inverse(reindexed_reduced_basis);
+                
+                Matrix I = matmul(reindexed_reduced_basis, reduced_basis_inverse);
+                
+                for ( size_t i=0; i<I.size(); i++ ) {
+                    while(!I[i].empty()) {
+                        column_entry_t p = I[i].pop_pivot();
+                        if ( p.get_index() != i ) {
+                            throw "Non-identity matrix";
+                        }
+                    }
+                }
                 
                 Matrix H_basis_inv = mat_v_cut(reduced_basis_inverse, H_basis.size());
                 
@@ -3529,6 +3559,21 @@ int main(int argc, char** argv) {
     v_max.push_back(8);v_max.push_back(8);v_max.push_back(8);
     
     Landscape landscape = computeLandscapeNaive(Matrix(minimal_presentation.first), std::vector<grade_t>(minimal_presentation.second), v_max, 1);
+    Landscape landscape2 = compute_landscape_naive_rank(Matrix(minimal_presentation.first), std::vector<grade_t>(minimal_presentation.second), v_max, 1);
+    
+    if ( landscape.size() != landscape2.size() ) {
+        throw "Error";
+    }
+    
+    for( size_t i=0; i<landscape.size(); i++ ) {
+        if ( landscape[i].first != landscape2[i].first ) {
+            throw "Grades do not match";
+        }
+        if ( landscape[i].second != landscape2[i].second ) {
+            throw "Values do not match";
+        }
+    }
+    
     CompressedLandscape compressed_landscape = computeCompressedLandscape(minimal_presentation.first, minimal_presentation.second);
     
     for (auto& pair : landscape) {
