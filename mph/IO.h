@@ -599,7 +599,7 @@ std::vector<std::vector<input_t>> compute_distance_matrix(std::vector<std::vecto
         for (size_t j = 0; j <= i ; j++) {
             input_t val = ((int)(1000*(*metric).eval(trajectory[i], trajectory[j])));
             row.push_back(val);
-            std::cout << "Eval: (" << trajectory[i][0] << ", "<< trajectory[i][1] << ", "<< trajectory[i][2] << ")" << "and (" << trajectory[j][0] << ", "<< trajectory[j][1] << ", "<< trajectory[j][2] << ")" << " = " << val << std::endl;
+         //   std::cout << "Eval: (" << trajectory[i][0] << ", "<< trajectory[i][1] << ", "<< trajectory[i][2] << ")" << "and (" << trajectory[j][0] << ", "<< trajectory[j][1] << ", "<< trajectory[j][2] << ")" << " = " << val << std::endl;
         }
         values.push_back(row);
     }
@@ -750,7 +750,7 @@ std::pair<Matrix, Matrix> compute_boundary_matrices_spatiotemporal(std::vector<s
         
         std::vector<std::vector<std::vector<input_t>>> trajectory_dms = get_trajectory_dms(trajectories, metric);
         
-        for(size_t i=0; i<trajectory_dms.size(); i++){
+      /*  for(size_t i=0; i<trajectory_dms.size(); i++){
             std::cout << "Trajectory dm " << i << ":" << std::endl;
             for (size_t j=0; j<trajectory_dms[i].size(); j++){
                 std::cout << "Row " << j << ":" << std::endl;
@@ -759,7 +759,7 @@ std::pair<Matrix, Matrix> compute_boundary_matrices_spatiotemporal(std::vector<s
                 }
                 std::cout << std::endl;
             }
-        }
+        } */
         
         for (size_t i = 0; i < trajectories.size(); i++) {
             std::vector<size_t> vertices;
@@ -1029,13 +1029,27 @@ template <typename SignatureColumn, typename Column> void read_input_file(std::i
     }*/
 }
 
-void apply_diagonal_grade_transform(Matrix columns) {
+void apply_diagonal_grade_transform(Matrix& columns) {
     for (size_t col_index=0; col_index<columns.size(); col_index++) {
         for (size_t i=0; i<columns[col_index].grade.size()-1; i++) {
             index_t updated_value = columns[col_index].grade[i] - columns[col_index].grade[columns[col_index].grade.size()-1];
             columns[col_index].grade[i] = updated_value >= 0 ? updated_value : 0;
         }
     }
+}
+
+void write_trajectories_to_file(std::vector<std::vector<std::vector<input_t>>> trajectories, std::ofstream& output_stream) {
+    
+    for ( auto& trajectory : trajectories ) {
+        for ( auto& point : trajectory ) {
+            for ( auto& coord : point ) {
+                output_stream << coord << ",";
+            }
+            output_stream << "\n";
+        }
+        output_stream << "::\n";
+    }
+    
 }
 
 #endif // MPH_IO_INCLUDED

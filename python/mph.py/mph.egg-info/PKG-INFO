@@ -4,7 +4,7 @@ Version: 0.0.1
 Summary: A Multiparameter Persistent Homology Library for Python
 Home-page: UNKNOWN
 Author: Oliver Gäfvert
-Author-email: oliverg@kth.se
+Author-email: oliver.gafvert@maths.ox.ac.uk
 License: MIT
 Description: UNKNOWN
 Keywords: persistent homology,topology data analysis,algebraic topology,unsupervised learning
@@ -21,5 +21,5 @@ Classifier: Programming Language :: Python :: 3.7
 Classifier: Programming Language :: Python :: 3.8
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
-Provides-Extra: docs
 Provides-Extra: testing
+Provides-Extra: docs

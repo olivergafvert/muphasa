@@ -100,12 +100,94 @@ inline size_t CompressedLandscape::operator()(grade_t& grade, size_t k)
         }
     }
     sort(diffs.begin(), diffs.end());
-    if ( diffs.size() > 0 ) {
-        std::cout << std::endl;
-    }
+    //if ( diffs.size() > 0 ) {
+    //    std::cout << std::endl;
+   // }
     return k < diffs.size() ? diffs[diffs.size()-1-k] : 0;
 }
 
+
+
+class DiagLandscape : public std::vector<std::pair<grade_t, std::vector<std::vector<grade_t>>>>{
+private:
+public:
+   
+    DiagLandscape() : std::vector<std::pair<grade_t, std::vector<std::vector<grade_t>>>>() { }
+
+    void sort_colex();
+    
+    size_t operator()(grade_t& grade, size_t k);
+};
+
+
+inline void DiagLandscape::sort_colex() {
+    for (size_t i=0; i<this->size(); i++) {
+        for (size_t j=0; j<this->at(i).second.size(); j++){
+            sort(this->at(i).second[j].begin(), this->at(i).second[j].end(), [ ](  grade_t& lhs,  grade_t& rhs )
+                 {
+                return lhs.lt_colex(rhs) ;
+            });
+        }
+    }
+}
+
+inline size_t DiagLandscape::operator()(grade_t& grade, size_t k)
+{
+    if (k<=0) {
+        return 0;
+    }
+    size_t r_index = grade.size()-1;
+    size_t v_r = grade[r_index];
+    std::vector<size_t> diffs;
+    for(auto& entry : *this) {
+        if (entry.first.leq_poset(grade)) {
+            bool should_add = false;
+            size_t low_index = grade[0]-entry.first[0];
+            for (size_t i=1; i<grade.size(); i++){
+                if ( low_index > grade[i]-entry.first[i] ) {
+                    low_index = grade[i]-entry.first[i];
+                }
+            }
+            size_t high_index = low_index;
+            for(size_t i=0; i<entry.second.size(); i++){
+                std::vector<grade_t> grade_list = entry.second[i];
+                grade_t c_grade(grade);
+                index_t val = c_grade[r_index];
+                c_grade[r_index] = c_grade[i];
+                c_grade[i] = val;
+                grade_t h_grade(c_grade);
+                for(auto& _grade : grade_list) {
+                    if ( _grade[r_index] >= c_grade[r_index]) {
+                        h_grade[r_index] = _grade[r_index];
+                        grade_t g_join = c_grade.join(_grade);
+                        if( g_join.leq_poset(h_grade) ) {
+                            size_t t_high_index = g_join[r_index]-1 >= c_grade[r_index] ? g_join[r_index]-1-c_grade[r_index] : 0;
+                            if ( t_high_index < high_index ) {
+                                high_index = t_high_index;
+                            }
+                            should_add = true;
+                            break;
+                        }
+                    } else if ( _grade.leq_poset(c_grade) ) {
+                        high_index = 0;
+                        should_add = true;
+                        break;
+                    }
+                }
+            }
+            if ( should_add && high_index >= 0 ) {
+                diffs.push_back( low_index > high_index ? high_index : low_index );
+            } else {
+                diffs.push_back(low_index);
+            }
+        }
+    }
+    sort(diffs.begin(), diffs.end());
+    //if ( diffs.size() > 0 ) {
+    //    std::cout << std::endl;
+   // }
+    return k < diffs.size() ? diffs[diffs.size()-k] : 0;
+}
 
 
 #endif /* landscapes_h */

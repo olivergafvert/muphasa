@@ -166,7 +166,7 @@ std::vector<std::vector<input_t>> trajectory_box(size_t n_samples, size_t dim, u
     
     std::vector<std::vector<input_t>> points;
     std::vector<input_t> point;
-    for(size_t i=0; i<dim+1; i++){
+    for(size_t i=0; i<dim; i++){
         point.push_back(uniform(gen));
     }
     for(size_t i=0; i<n_samples; i++){
@@ -246,5 +246,6 @@ std::pair<Matrix, Matrix> get_random_boundary_matrix(size_t n_points, size_t n_d
     }
     return compute_boundary_matrices_grades(points, grades, max_grade, n_dim);
 }
+
 
 #endif /* examples_h */
