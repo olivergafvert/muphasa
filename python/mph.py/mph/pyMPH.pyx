@@ -38,7 +38,7 @@ def computeGroebnerBases(np.ndarray[int,ndim=2,mode="c"] matrix not None, np.nda
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def computeSpatiotemporalLandscapesSparse(np.ndarray[double,ndim=3,mode="c"] trajectories not None, double max_metric_value, int hom_dim):
+def computeSpatiotemporalLandscapesSparse(np.ndarray[double,ndim=3,mode="c"] trajectories not None, pyMPH.input_t max_metric_value, int hom_dim):
 
 	res = pyMPH.landscapes_spatiotemporal(trajectories, max_metric_value, hom_dim)
 
