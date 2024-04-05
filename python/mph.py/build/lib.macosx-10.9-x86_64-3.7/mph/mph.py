@@ -1,7 +1,7 @@
 
 import numpy as np
 from typing import List, Tuple
-from pyMPH import doPresentation, doPresentationFIrep, doPresentationDm, computeGroebnerBases
+from pyMPH import doPresentation, doPresentationFIrep, doPresentationDm, computeGroebnerBases, computeSpatiotemporalLandscapesSparse
 
 METRIC_DICT = {
     "euclidean" : 0,
@@ -10,6 +10,10 @@ METRIC_DICT = {
 FILTER_DICT = {
     "codensity" : -1
 }
+
+
+
+
 
 class GradedMatrix(object):
     def __init__(self, matrix: List[List[Tuple[int, int]]], column_grades: List[List[int]], row_grades: List[List[int]]):
@@ -41,6 +45,55 @@ def parse_log_level(log_level: str) -> int:
     elif log_level == "debug":
         return 2
     return 0
+
+class SparseLandscape(object):
+    def __init__(self, pairings: List[Tuple[List[int], List[List[int]]]]):
+        self.pairings = pairings
+
+    def leq(self, g1, g2):
+        for i in range(len(g1)):
+            if g2[i]<g1[i]:
+                return False
+        return True
+
+    def join(self, g1, g2):
+        return [ g1[i] if g1[i]>g2[i] else g2[i] for i in range(len(g1)) ]
+
+    def eval(self, grade, k):
+        if k<=0:
+            return 0
+        r_index = len(grade)-1
+        v_r = grade[-1]
+        diffs = []
+        for entry in self.pairings:
+            if self.leq(entry[0], grade):
+                low_index = entry[0][r_index]
+                h_grade = [x for x in grade]
+                high_index = low_index
+                if len(entry[1]) > 0:
+                    should_add = False
+                    for _grade in entry[1]:
+                        if _grade[r_index] >= grade[r_index]:
+                            h_grade[r_index] = _grade[r_index]
+                            g_join = self.join(grade, _grade)
+                            if self.leq(g_join, h_grade):
+                                high_index = g_join[r_index]-1 if g_join[r_index]-1 >= v_r else v_r
+                                should_add = True
+                                break
+                        elif self.leq(_grade, grade):
+                            high_index = v_r
+                            should_add = True
+                            break
+                        
+                    
+                    if should_add and high_index >= v_r:
+                        diffs.append( high_index-v_r if v_r-low_index > high_index-v_r  else v_r-low_index )
+                    else:
+                        diffs.append(v_r-low_index)
+                    
+                else:
+                    diffs.append(v_r-low_index)
+        return sorted(diffs)[len(diffs)-1-k] if k < len(diffs) else 0
 
 def translate_metrics_filters(metrics: List[str], filters: List[str]):
     for metric in metrics: 
@@ -74,5 +127,8 @@ def groebner_bases(matrix: np.ndarray, column_grades: List[List[int]], row_grade
     ret = computeGroebnerBases(np.ascontiguousarray(matrix.T, dtype=np.int32), np.ascontiguousarray(row_grades, dtype=np.int32), np.ascontiguousarray(column_grades, dtype=np.int32))
     return GradedMatrix(ret[0]["matrix"], ret[0]["column_grades"], ret[0]["row_grades"]), GradedMatrix(ret[1]["matrix"], ret[1]["column_grades"], ret[1]["row_grades"])
 
+def compute_spatiotemporal_landscapes_sparse(trajectories: np.ndarray, max_metric_value: float, hom_dim: int) -> SparseLandscape:
+    ret = computeSpatiotemporalLandscapesSparse(np.ascontiguousarray(trajectories, dtype=np.float64), max_metric_value*max_metric_value*1000, hom_dim)
+    return SparseLandscape(ret["pairings"])
 
-__all__ = ["presentation", "presentation_dm", "presentation_FIrep", "groebner_bases", "GradedMatrix"]
+__all__ = ["presentation", "presentation_dm", "presentation_FIrep", "groebner_bases", "GradedMatrix", "compute_spatiotemporal_landscapes_sparse"]

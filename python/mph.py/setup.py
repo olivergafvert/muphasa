@@ -75,7 +75,7 @@ setup(
     long_description="",
     long_description_content_type="text/markdown",
     author="Oliver Gäfvert",
-    author_email="oliverg@kth.se",
+    author_email="oliver.gafvert@maths.ox.ac.uk",
     url="",
     license='MIT',
     packages=['mph'],

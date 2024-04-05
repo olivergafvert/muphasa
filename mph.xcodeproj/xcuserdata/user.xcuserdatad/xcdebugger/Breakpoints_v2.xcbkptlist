@@ -1,0 +1,1471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "20971EB5-16B2-4C3C-BDDE-7F943CE7D194"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "108C6BC3-1433-4435-AB6F-9E93E5803C9F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.399379"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3337"
+            endingLineNumber = "3337"
+            landmarkName = "compute_presentation_schreyer(image_generators, kernel_generators)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C18ABD0-F4C1-4EA6-84E0-EE8E9B40EACB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.39977"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2797"
+            endingLineNumber = "2797"
+            landmarkName = "computeMinimalPresentation_3p(image_columns, columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AEE7F144-43F6-4109-BE62-0B57C8468304"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "687109362.399959"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "779"
+            endingLineNumber = "779"
+            landmarkName = "compute_boundary_matrices_spatiotemporal(trajectories, metric, max_metric_value, hom_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C60A4A4-C160-405C-A283-7170FCE368C0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.400176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1034"
+            endingLineNumber = "1034"
+            landmarkName = "ImageGB_gradeopt_min_sig_basis(columns, ker_basis)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5EC76627-DFD1-4176-A728-F815022489FD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.400367"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1157"
+            endingLineNumber = "1157"
+            landmarkName = "ImageGB_gradeopt_min_sig_basis(columns, ker_basis)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B05434B-C9BA-474D-BEE1-15C7C0A87E28"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.400545"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "4305"
+            endingLineNumber = "4305"
+            landmarkName = "main(argc, argv)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9E62C573-5411-4A95-8CE7-42C70ED75C43"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "687109362.400745"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "775"
+            endingLineNumber = "775"
+            landmarkName = "compute_boundary_matrices_spatiotemporal(trajectories, metric, max_metric_value, hom_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A64C00DE-BEDD-4E0C-B6EB-E25A3E8DF987"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "687109362.400774"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "785"
+            endingLineNumber = "785"
+            landmarkName = "compute_boundary_matrices_spatiotemporal(trajectories, metric, max_metric_value, hom_dim)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "A64C00DE-BEDD-4E0C-B6EB-E25A3E8DF987 - c7d8f872507368e3"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "compute_boundary_matrices_spatiotemporal(std::__1::vector&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; &gt; &gt;&amp;, Metric*, double, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/IO.h"
+                  timestampString = "686242436.619194"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "683"
+                  endingLineNumber = "683"
+                  offsetFromSymbolStart = "1902">
+               </Location>
+               <Location
+                  uuid = "A64C00DE-BEDD-4E0C-B6EB-E25A3E8DF987 - c7d8f872507368e3"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "compute_boundary_matrices_spatiotemporal(std::__1::vector&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; &gt; &gt;&amp;, Metric*, double, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/IO.h"
+                  timestampString = "686242436.622233"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "683"
+                  endingLineNumber = "683"
+                  offsetFromSymbolStart = "1922">
+               </Location>
+               <Location
+                  uuid = "A64C00DE-BEDD-4E0C-B6EB-E25A3E8DF987 - c7d8f872507368e3"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "compute_boundary_matrices_spatiotemporal(std::__1::vector&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; &gt; &gt;&amp;, Metric*, double, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/IO.h"
+                  timestampString = "686242436.625033"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "683"
+                  endingLineNumber = "683"
+                  offsetFromSymbolStart = "3652">
+               </Location>
+               <Location
+                  uuid = "A64C00DE-BEDD-4E0C-B6EB-E25A3E8DF987 - c7d8f872507368e3"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "compute_boundary_matrices_spatiotemporal(std::__1::vector&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt; &gt; &gt;&amp;, Metric*, double, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/IO.h"
+                  timestampString = "686242436.628275"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "683"
+                  endingLineNumber = "683"
+                  offsetFromSymbolStart = "4624">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "387D9BB1-D3CE-400D-80BE-B41BE392ED98"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "687109362.400798"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "782"
+            endingLineNumber = "782"
+            landmarkName = "compute_boundary_matrices_spatiotemporal(trajectories, metric, max_metric_value, hom_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CDB5E82E-62F6-40E3-B5EC-3113BE097991"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "687109362.400821"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
+            landmarkName = "add_boundary_columns(high_simplices, low_simplices, matrix, grade_map)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "CDB5E82E-62F6-40E3-B5EC-3113BE097991 - 8e03e73832ceaa1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "void add_boundary_columns&lt;double&gt;(std::__1::vector&lt;Simplex&lt;double&gt;, std::__1::allocator&lt;Simplex&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;Simplex&lt;double&gt;, std::__1::allocator&lt;Simplex&lt;double&gt; &gt; &gt;&amp;, Matrix&amp;, std::__1::vector&lt;hash_map&lt;double, long long&gt;, std::__1::allocator&lt;hash_map&lt;double, long long&gt; &gt; &gt;&amp;)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa_pre_release/mph/IO.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "388"
+                  endingLineNumber = "388"
+                  offsetFromSymbolStart = "1064">
+               </Location>
+               <Location
+                  uuid = "CDB5E82E-62F6-40E3-B5EC-3113BE097991 - 504d7a93a91ecb36"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "void add_boundary_columns&lt;long long&gt;(std::__1::vector&lt;Simplex&lt;long long&gt;, std::__1::allocator&lt;Simplex&lt;long long&gt; &gt; &gt;&amp;, std::__1::vector&lt;Simplex&lt;long long&gt;, std::__1::allocator&lt;Simplex&lt;long long&gt; &gt; &gt;&amp;, Matrix&amp;, std::__1::vector&lt;hash_map&lt;long long, long long&gt;, std::__1::allocator&lt;hash_map&lt;long long, long long&gt; &gt; &gt;&amp;)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa_pre_release/mph/IO.h"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "388"
+                  endingLineNumber = "388"
+                  offsetFromSymbolStart = "1064">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2E0805F8-15F9-4F56-BB94-38580482CE71"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "687109362.400843"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
+            landmarkName = "add_boundary_columns_multicritical(high_simplices, low_simplices, matrix, grade_map)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "21C3607B-F74F-4B36-9AB6-46F696CF72DB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "687109362.400866"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
+            landmarkName = "add_boundary_columns_multicritical(high_simplices, low_simplices, matrix, grade_map)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D0F57C7E-14B1-4C36-9E99-B4209F40922C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.400888"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3412"
+            endingLineNumber = "3412"
+            landmarkName = "compute_landscape_naive_rank(presentation, row_grades, v_max, lanscape_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B4C2971-43CA-4832-8148-2687D3EFB0B2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.40107"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3424"
+            endingLineNumber = "3424"
+            landmarkName = "compute_landscape_naive_rank(presentation, row_grades, v_max, lanscape_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "44E5D95B-29CF-4FA0-8336-B87C80C42B59"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.401262"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3427"
+            endingLineNumber = "3427"
+            landmarkName = "compute_landscape_naive_rank(presentation, row_grades, v_max, lanscape_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "182C25AF-FC8C-49E8-B525-F039FBD83010"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            timestampString = "687109362.401453"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "CompressedLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "94534482-BCC2-4AFD-958A-DC56E3200B59"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            timestampString = "687109362.4014831"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "CompressedLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C59539CE-A52F-45AC-BA8B-759F2F4864F8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            timestampString = "687109362.401508"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "CompressedLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D61C8F5-3AE2-4806-948D-E82BEC24CC51"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.401531"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3394"
+            endingLineNumber = "3394"
+            landmarkName = "compute_landscape_naive_rank(presentation, row_grades, v_max, lanscape_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "693BA601-7551-41AA-85B2-BE16006813B9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.40172"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3418"
+            endingLineNumber = "3418"
+            landmarkName = "compute_landscape_naive_rank(presentation, row_grades, v_max, lanscape_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C83197F1-39C2-4A49-98B0-D4644C274209"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.401912"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1263"
+            endingLineNumber = "1263"
+            landmarkName = "computeCompressedLandscape(presentation, row_grades)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B992BA13-B673-477C-90D0-1A839740D2E3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.4021339"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1291"
+            endingLineNumber = "1291"
+            landmarkName = "computeCompressedLandscape(presentation, row_grades)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BEEA51FC-6EAC-4347-BC2D-4CB6E5A2261D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.402532"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3406"
+            endingLineNumber = "3406"
+            landmarkName = "compute_landscape_naive_rank(presentation, row_grades, v_max, lanscape_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E93D39B4-7327-490E-9623-F32551AC9B81"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.402751"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3059"
+            endingLineNumber = "3059"
+            landmarkName = "computeMinimalPresentation_3p(image_columns, columns)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "E93D39B4-7327-490E-9623-F32551AC9B81 - 75c8dd28477d5cc8"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847364.389935"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2546"
+                  endingLineNumber = "2546"
+                  offsetFromSymbolStart = "82233">
+               </Location>
+               <Location
+                  uuid = "E93D39B4-7327-490E-9623-F32551AC9B81 - 75c8dd28477d5cc8"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847364.392593"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2546"
+                  endingLineNumber = "2546"
+                  offsetFromSymbolStart = "82660">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.402963"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3065"
+            endingLineNumber = "3065"
+            landmarkName = "computeMinimalPresentation_3p(image_columns, columns)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.308095"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "978">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.311654"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "1540">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.314623"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "1567">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.317824"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "2960">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.321324"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "7513">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.324331"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "8133">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.327444"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "9606">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.3306299"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "12467">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.332917"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "15464">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.334456"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "18979">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.3359669"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "21482">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.33761"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "25406">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.339101"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "25490">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.340493"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "25510">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.341873"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "27282">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.343436"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "30777">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.344954"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "38389">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.346508"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "38409">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.348086"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "40199">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.349964"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "44640">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.3513499"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "45679">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.352581"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "49664">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.353798"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "49684">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.354967"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "51456">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.356213"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "59834">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.357703"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "60046">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.358886"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "60066">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.360184"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "61856">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.361403"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "65972">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.36271"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "66036">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.363969"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "66056">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.365276"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "67905">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.366438"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "75936">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.367713"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "76188">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.368872"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "76208">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.3700989"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "77998">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.371242"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "79266">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.3724101"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "80720">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.373612"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "81280">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.37476"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "81327">
+               </Location>
+               <Location
+                  uuid = "8F5A962D-4DB3-4839-9EE4-DAC4C16F266D - 75c8dd28477d5f02"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686847169.375968"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2552"
+                  endingLineNumber = "2552"
+                  offsetFromSymbolStart = "83207">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "50AB27D1-D512-4A19-90BB-62B6A36897D6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.4031399"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3791"
+            endingLineNumber = "3791"
+            landmarkName = "computeLandscapeNaive_diag(presentation, row_grades, v_max, lanscape_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "43318BB0-B1C1-4C98-8287-ACEC1BF31D5E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.403319"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "4279"
+            endingLineNumber = "4279"
+            landmarkName = "print_usage_and_exit(exit_code)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C78D0C2-218E-4586-9F64-EF72141CC56C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.403708"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3035"
+            endingLineNumber = "3035"
+            landmarkName = "computeMinimalPresentation_3p(image_columns, columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE904B1E-96C7-4F4D-914F-DED9C609790E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.403887"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2634"
+            endingLineNumber = "2634"
+            landmarkName = "computeMinimalPresentation_3p(image_columns, columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CA9D70D3-B0FE-4CFF-B86F-6ADD0A201530"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.404063"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2651"
+            endingLineNumber = "2651"
+            landmarkName = "computeMinimalPresentation_3p(image_columns, columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8D9A0957-EA10-4A59-A5C1-06896209C8F0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "687109362.404237"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2664"
+            endingLineNumber = "2664"
+            landmarkName = "computeMinimalPresentation_3p(image_columns, columns)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "8D9A0957-EA10-4A59-A5C1-06896209C8F0 - 75c8dd28477d933c"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686850529.400234"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2150"
+                  endingLineNumber = "2150"
+                  offsetFromSymbolStart = "12506">
+               </Location>
+               <Location
+                  uuid = "8D9A0957-EA10-4A59-A5C1-06896209C8F0 - 75c8dd28477d933c"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "computeMinimalPresentation_3p(Matrix&amp;, Matrix&amp;, bool)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Documents/muphasa/mph/main.cpp"
+                  timestampString = "686850529.402862"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2150"
+                  endingLineNumber = "2150"
+                  offsetFromSymbolStart = "12940">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33D6DA32-B731-4BB8-9F0C-51B1C5EA16BE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1407"
+            endingLineNumber = "1407"
+            landmarkName = "computeSparseDiagLandscape(presentation, row_grades)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BE14C9D9-AD90-403F-AEBA-E9566932685B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1408"
+            endingLineNumber = "1408"
+            landmarkName = "computeSparseDiagLandscape(presentation, row_grades)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "63B579B9-DB6C-42B2-A6AC-B7DA2CA74447"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "DiagLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "09F74CFC-8F33-4E72-940D-8A12C6882A98"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "DiagLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "43E47112-1311-49ED-B0E7-BF1B6DB7A7CE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "DiagLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "53DAD09E-2715-42EB-BD31-278B84AD0369"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "DiagLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E772902-B2E0-45CD-BAC6-AFBDC97FF3E5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/landscapes.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "DiagLandscape::operator()(grade, k)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

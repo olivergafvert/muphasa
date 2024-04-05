@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "639666639.260286"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "add_boundary_columns(std::vector&lt;Simplex&lt;T&gt;&gt;&amp; high_simplices, std::vector&lt;Simplex&lt;T&gt;&gt;&amp; low_simplices, Matrix&amp; matrix, std::vector&lt;hash_map&lt;T, index_t&gt;&gt;&amp; grade_map)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "std::__1::pair&lt;Matrix, Matrix&gt; compute_boundary_matrices&lt;double&gt;(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;&amp;, std::__1::vector&lt;Metric&lt;double&gt;, std::__1::allocator&lt;Metric&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;Filter&lt;double&gt;, std::__1::allocator&lt;Filter&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oliver/Documents/multiparameterPersistence/code/mph/IO.h"
+                  timestampString = "613939974.209831"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "245"
+                  endingLineNumber = "245"
+                  offsetFromSymbolStart = "2413">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "std::__1::pair&lt;Matrix, Matrix&gt; compute_boundary_matrices&lt;double&gt;(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;&amp;, std::__1::vector&lt;Metric&lt;double&gt;, std::__1::allocator&lt;Metric&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;Filter&lt;double&gt;, std::__1::allocator&lt;Filter&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oliver/Documents/multiparameterPersistence/code/mph/IO.h"
+                  timestampString = "613939974.215481"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "245"
+                  endingLineNumber = "245"
+                  offsetFromSymbolStart = "2433">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "std::__1::pair&lt;Matrix, Matrix&gt; compute_boundary_matrices&lt;double&gt;(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;&amp;, std::__1::vector&lt;Metric&lt;double&gt;, std::__1::allocator&lt;Metric&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;Filter&lt;double&gt;, std::__1::allocator&lt;Filter&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oliver/Documents/multiparameterPersistence/code/mph/IO.h"
+                  timestampString = "613939974.219854"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "245"
+                  endingLineNumber = "245"
+                  offsetFromSymbolStart = "3236">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "std::__1::pair&lt;Matrix, Matrix&gt; compute_boundary_matrices&lt;double&gt;(std::__1::vector&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt; &gt; &gt;&amp;, std::__1::vector&lt;Metric&lt;double&gt;, std::__1::allocator&lt;Metric&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;Filter&lt;double&gt;, std::__1::allocator&lt;Filter&lt;double&gt; &gt; &gt;&amp;, std::__1::vector&lt;double, std::__1::allocator&lt;double&gt; &gt;, int)"
+                  moduleName = "mph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oliver/Documents/multiparameterPersistence/code/mph/IO.h"
+                  timestampString = "613939974.223819"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "245"
+                  endingLineNumber = "245"
+                  offsetFromSymbolStart = "3840">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/grade.h"
+            timestampString = "634231482.966681"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "Iterator_lex(const std::vector&lt;std::vector&lt;index_t&gt;&gt;&amp; base_set)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "639666639.260504"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "build_VR_subcomplex_dm(std::vector&lt;std::vector&lt;std::vector&lt;input_t&gt;&gt;&gt;&amp; distance_matrices, std::vector&lt;std::vector&lt;input_t&gt;&gt;&amp; filters, std::vector&lt;size_t&gt;&amp; vertices, std::vector&lt;input_t&gt;&amp; prev_values, std::vector&lt;input_t&gt;&amp; max_metric_values, std::vector&lt;Simplex&lt;input_t&gt;&gt;&amp; low_simplices, std::vector&lt;Simplex&lt;input_t&gt;&gt;&amp; mid_simplices, std::vector&lt;Simplex&lt;input_t&gt;&gt;&amp; high_simplices, int hom_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "639666639.260588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "eval(std::vector&lt;input_t&gt; a, std::vector&lt;input_t&gt; b)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/grade.h"
+            timestampString = "634231482.966962"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "grade_t::lt_poset(grade_t&amp; other_grade)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "639666639.260687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "build_VR_subcomplex_dm(std::vector&lt;std::vector&lt;std::vector&lt;input_t&gt;&gt;&gt;&amp; distance_matrices, std::vector&lt;std::vector&lt;input_t&gt;&gt;&amp; filters, std::vector&lt;size_t&gt;&amp; vertices, std::vector&lt;input_t&gt;&amp; prev_values, std::vector&lt;input_t&gt;&amp; max_metric_values, std::vector&lt;Simplex&lt;input_t&gt;&gt;&amp; low_simplices, std::vector&lt;Simplex&lt;input_t&gt;&gt;&amp; mid_simplices, std::vector&lt;Simplex&lt;input_t&gt;&gt;&amp; high_simplices, int hom_dim)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "649782738.138491"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "computeGroebnerBases(std::vector&lt;SignatureColumn&gt;&amp; columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "649782738.139962"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "computeGroebnerBases(std::vector&lt;SignatureColumn&gt;&amp; columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/grade.h"
+            timestampString = "634231482.973501"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "get_grade_base_set(const std::vector&lt;Column&gt;&amp; columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/bigraded_matrix.h"
+            timestampString = "623793550.135947"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1314"
+            endingLineNumber = "1314"
+            landmarkName = "BigradedMatrix::kernel()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "639666639.261134"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "eval(std::vector&lt;input_t&gt; a)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "639666639.26143"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
+            landmarkName = "compute_grade_map(std::vector&lt;Simplex&lt;T&gt;&gt;&amp; high_simplices, std::vector&lt;Simplex&lt;T&gt;&gt;&amp; mid_simplices, std::vector&lt;Simplex&lt;T&gt;&gt;&amp; low_simplices)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/IO.h"
+            timestampString = "639666639.261489"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
+            landmarkName = "compute_grade_map(std::vector&lt;Simplex&lt;T&gt;&gt;&amp; high_simplices, std::vector&lt;Simplex&lt;T&gt;&gt;&amp; mid_simplices, std::vector&lt;Simplex&lt;T&gt;&gt;&amp; low_simplices)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "649782738.140363"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "546"
+            endingLineNumber = "546"
+            landmarkName = "computeGroebnerBases_gradeopt_min(std::vector&lt;SignatureColumn&gt;&amp; columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "649782738.140642"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1362"
+            endingLineNumber = "1362"
+            landmarkName = "computeGroebnerBases_gradeopt_visited(std::vector&lt;SignatureColumn&gt;&amp; columns)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mph/main.cpp"
+            timestampString = "649782738.140911"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "4047"
+            endingLineNumber = "4047">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
