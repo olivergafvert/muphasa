@@ -1548,7 +1548,13 @@ Matrix computeKernel_2p(std::vector<SignatureColumn>& columns){
     
     /* Main algorithm that iterates through the index set */
     index_t pivot;
-    std::vector<index_t> pivot_map(columns.size(), -1);
+    index_t max_pivot=0;
+    for(auto& column : columns){
+        if(max_pivot < column.get_pivot().get_index()){
+            max_pivot = column.get_pivot().get_index();
+        }
+    }
+    std::vector<index_t> pivot_map(max_pivot+1, -1);
     
     while(grade_iterator.has_next()){
         grade_t& v = grade_iterator.next();
