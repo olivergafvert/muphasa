@@ -260,7 +260,7 @@ std::pair<Matrix, Matrix> computeGroebnerBases_gradeopt_min(std::vector<Signatur
     while(!grades.empty()){
         grade_t v = grades.top();
         grades.pop();
-        while(v == grades.top()){
+        while(!grades.empty() && v == grades.top()){
             grades.pop();
         }
         
@@ -471,7 +471,7 @@ std::pair<Matrix, Matrix> computeGroebnerBases_gradeopt(std::vector<SignatureCol
     while(!grades.empty()){
         grade_t v = grades.top();
         grades.pop();
-        while(v == grades.top()){
+        while(!grades.empty() && v == grades.top()){
             grades.pop();
         }
         size_t grade_hash = grade_hasher(v);
@@ -657,7 +657,7 @@ Matrix computekernel_gradeopt(std::vector<SignatureColumn>& columns){
     while(!grades.empty()){
         grade_t v = grades.top();
         grades.pop();
-        while(v == grades.top()){
+        while(!grades.empty() && v == grades.top()){
             grades.pop();
         }
         iter_index++;
@@ -1038,7 +1038,7 @@ std::pair<Matrix, std::vector<std::pair<grade_t, std::vector<size_t>>>> ImageGB_
     while(!grades.empty()){
         grade_t v = grades.top();
         grades.pop();
-        while(v == grades.top()){
+        while(!grades.empty() && v == grades.top()){
             grades.pop();
         }
         
@@ -1250,7 +1250,7 @@ CompressedLandscape computeCompressedLandscape(std::vector<SignatureColumn>& pre
     while(!grades.empty()){
         grade_t v = grades.top();
         grades.pop();
-        while(v == grades.top()){
+        while(!grades.empty() && v == grades.top()){
             grades.pop();
         }
         
@@ -1548,7 +1548,13 @@ Matrix computeKernel_2p(std::vector<SignatureColumn>& columns){
     
     /* Main algorithm that iterates through the index set */
     index_t pivot;
-    std::vector<index_t> pivot_map(columns.size(), -1);
+    index_t max_pivot=0;
+    for(auto& column : columns){
+        if(max_pivot < column.get_pivot().get_index()){
+            max_pivot = column.get_pivot().get_index();
+        }
+    }
+    std::vector<index_t> pivot_map(max_pivot+1, -1);
     
     while(grade_iterator.has_next()){
         grade_t& v = grade_iterator.next();
@@ -2230,7 +2236,7 @@ std::pair<Matrix, std::vector<grade_t>> computeMinimalPresentation(Matrix& image
     int iter_index = 0;
     while(!grades.empty()){
         grade_t v = grades.top();
-        while(v == grades.top()){
+        while(!grades.empty() && v == grades.top()){
             grades.pop();
         }
     
@@ -2686,7 +2692,7 @@ std::pair<Matrix, std::vector<grade_t>> computeMinimalPresentation_3p(Matrix& im
     int iter_index = 0;
     while(!grades.empty()){
         grade_t v = grades.top();
-        while(v == grades.top()){
+        while(!grades.empty() && v == grades.top()){
             grades.pop();
         }
     
@@ -4354,4 +4360,3 @@ int main(int argc, char** argv) {
     
     exit(0);
 }
-
